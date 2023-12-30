@@ -1,0 +1,4 @@
+    20231222 - delay between multiple, consecutive calls is for certain devices a MUST, e.g. Alfen CS.
+        It is set in configuration.py
+    20231223 - remove async entirely from project as it doesn't work (anymore) since ???
+        implication: attribute 'synchro' is no longer used and removed from the configuration.
