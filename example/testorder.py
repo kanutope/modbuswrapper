@@ -3,12 +3,18 @@ from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
 from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
 from modbuswrapper.wrapper import modbus_client, modbus_interface
 from modbuswrapper.configuration import NODES
-import modbuswrapper.example.implement as implement
 
 from time import sleep
 from sys import argv
 from getopt import gnu_getopt
 from logging import basicConfig, DEBUG, INFO, ERROR
+
+
+def read_parameter(iface: modbus_interface, fName: str):
+    rr = iface.call(fName, 'rd')
+    cur = iface.decode_response(fName, rr)
+    print(f"Parameter {fName}: {cur}")
+    return cur
 
 
 def init_clients():
@@ -89,7 +95,7 @@ order = {
 }
 
 if __name__ == '__main__':
-    optList, args = gnu_getopt(argv, '1234w', ['order1', 'order2', 'order3', 'order4', 'write'])
+    optList, args = gnu_getopt(argv, '1234w:', ['order1', 'order2', 'order3', 'order4', 'write='])
     clients = init_clients()
 
     i = 0
@@ -108,6 +114,7 @@ if __name__ == '__main__':
             i = 4
         elif opt in ('-w', '-write'):
             wr = True
+            par = int(arg)
 
     if i == 0:
         raise UserWarning(f"%%% Unsupported configuration {i}")
@@ -115,7 +122,35 @@ if __name__ == '__main__':
     ifaces = init_interfaces(clients, order[i]['byteorder'], order[i]['wordorder'])
     print(order[i])
 
-    for appl in functions:
-        for func in functions[appl]:
-            print(f"appliance [{appl}] -> function [{func}]")
-            implement.read_parameter(ifaces[appl], func)
+    if wr:
+        """'conf-modbus-maxcurrent': {}, maxcurr = 13.0
+        """
+        v = (13 - par*0.25)
+        dev = 'alfen'
+        func = 'conf-modbus-maxcurrent'
+        rr = ifaces[dev].call(func, 'wr', f"{v}")
+        print(f"{func}({v}) -> {rr}")
+        read_parameter(ifaces[dev], func)
+
+        """'conf-charge-using-1-or-3-phases': {}, phases = 1
+        """
+        v = (1 + (par % 2)*2)
+        dev = 'alfen'
+        func = 'conf-charge-using-1-or-3-phases'
+        rr = ifaces[dev].call(func, 'wr', f"{v}")
+        print(f"{func}({v}) -> {rr}")
+        read_parameter(ifaces[dev], func)
+
+        """'maximum-allowed-gear-in-heating': {}, maxgear = 9
+        """
+        v = (9 - par)
+        dev = 'calibra'
+        func = 'maximum-allowed-gear-in-heating'
+        rr = ifaces[dev].call(func, 'wr', f"{v}")
+        print(f"{func}({v}) -> {rr}")
+        read_parameter(ifaces[dev], func)
+    else:
+        for appl in functions:
+            for func in functions[appl]:
+                print(f"appliance [{appl}] -> function [{func}]")
+                read_parameter(ifaces[appl], func)
