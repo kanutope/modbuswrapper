@@ -19,7 +19,7 @@ FUNCTIONS = {
         'descr': 'Enable HGW',
         'len': 1, 'rd': 1, 'wr': 5, 'scale': 1,
         'validate': 'in_list(0, 1)', 'datatype': 'bits', 'unit': ''},
-    'enable-flow-switch/pressure-switch': {
+    'enable-flow-switch_pressure-switch': {
         'address': 7,
         'descr': 'Enable flow switch/pressure switch',
         'len': 1, 'rd': 1, 'wr': 5, 'scale': 1,
@@ -329,7 +329,7 @@ FUNCTIONS = {
         'descr': 'Suction gas sensor alarm',
         'len': 1, 'rd': 2, 'wr': 0, 'scale': 1,
         'validate': '', 'datatype': 'bits', 'unit': ''},
-    'flow/pressure-switch-alarm': {
+    'flow_pressure-switch-alarm': {
         'address': 16,
         'descr': 'Flow/pressure switch alarm',
         'len': 1, 'rd': 2, 'wr': 0, 'scale': 1,
@@ -664,7 +664,7 @@ FUNCTIONS = {
         'descr': 'Mix valve 1 circulation pump control signal',
         'len': 1, 'rd': 2, 'wr': 0, 'scale': 1,
         'validate': '', 'datatype': 'bits', 'unit': ''},
-    'condenser-pump-on/off-control': {
+    'condenser-pump-on_off-control': {
         'address': 210,
         'descr': 'Condenser pump On/off control',
         'len': 1, 'rd': 2, 'wr': 0, 'scale': 1,
@@ -679,7 +679,7 @@ FUNCTIONS = {
         'descr': 'Hot gas circulation pump control signal',
         'len': 1, 'rd': 2, 'wr': 0, 'scale': 1,
         'validate': '', 'datatype': 'bits', 'unit': ''},
-    'brine-pump-on/off-control': {
+    'brine-pump-on_off-control': {
         'address': 218,
         'descr': 'Brine pump On/off control',
         'len': 1, 'rd': 2, 'wr': 0, 'scale': 1,
@@ -1343,12 +1343,12 @@ FUNCTIONS = {
         'descr': 'D - value for gear shifting and demand calculation',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 100,
         'validate': '', 'datatype': 'int16', 'unit': ''},
-    'i-value-for-compressor-on/off': {
+    'i-value-for-compressor-on_off': {
         'address': 135,
         'descr': 'I - value for compressor ON/OFF (Buffer tank)',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 100,
         'validate': '', 'datatype': 'int16', 'unit': ''},
-    'p-value-for-compressor-on/off': {
+    'p-value-for-compressor-on_off': {
         'address': 136,
         'descr': 'P - value for compressor ON/OFF (Buffer tank)',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 100,

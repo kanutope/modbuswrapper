@@ -402,7 +402,7 @@ FUNCTIONS = {
         'descr': 'Filters used in hours',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
         'validate': '', 'datatype': 'uint16', 'unit': 'hrs'},
-    'filters-used-in-m3/h': {
+    'filters-used-in-m3-per-hour': {
         'address': 4116,
         'descr': 'Filters used in m3/h',
         'len': 2, 'rd': 4, 'wr': 0, 'scale': 1,
@@ -742,7 +742,7 @@ FUNCTIONS = {
         'descr': 'Time notation',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
         'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
-    'total-flow-in-m3/h': {
+    'total-flow-in-m3-per-hour': {
         'address': 4118,
         'descr': 'Total flow in m3/h',
         'len': 2, 'rd': 4, 'wr': 0, 'scale': 1,
