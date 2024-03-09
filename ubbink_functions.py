@@ -90,12 +90,12 @@ FUNCTIONS = {
     'analogue-input-1-vmax': {
         'address': 6222,
         'descr': 'Analogue input 1 Vmax',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(0, 100)', 'datatype': 'uint16', 'unit': 'dV'},
     'analogue-input-1-vmin': {
         'address': 6221,
         'descr': 'Analogue input 1 Vmin',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(0, 100)', 'datatype': 'uint16', 'unit': 'dV'},
     'analogue-input-2-mode': {
         'address': 6230,
@@ -105,12 +105,12 @@ FUNCTIONS = {
     'analogue-input-2-vmax': {
         'address': 6232,
         'descr': 'Analogue input 2 Vmax',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(0, 100)', 'datatype': 'uint16', 'unit': 'dV'},
     'analogue-input-2-vmin': {
         'address': 6231,
         'descr': 'Analogue input 2 Vmin',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(0, 100)', 'datatype': 'uint16', 'unit': 'dV'},
     'appliance-reset': {
         'address': 8011,
@@ -150,17 +150,17 @@ FUNCTIONS = {
     'bypass-temp-from-dwelling': {
         'address': 6101,
         'descr': 'Bypass temperature from dwelling',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(15, 350)', 'datatype': 'int16', 'unit': '°C'},
     'bypass-temp-from-outside': {
         'address': 6102,
         'descr': 'Bypass temperature from outside',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(70, 150)', 'datatype': 'int16', 'unit': '°C'},
     'bypass-temp-hysteresis': {
         'address': 6103,
         'descr': 'Bypass temperature hysteresis',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(0, 50)', 'datatype': 'int16', 'unit': '°C'},
     'capacity-of-preheater': {
         'address': 4061,
@@ -445,12 +445,12 @@ FUNCTIONS = {
     'frost-control-min-supply-temperature': {
         'address': 6111,
         'descr': 'Frost control minimum inlet temperature',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(70, 220)', 'datatype': 'int16', 'unit': '°C'},
     'frost-control-temperature': {
         'address': 6110,
         'descr': 'Frost control temperature',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(0, 30)', 'datatype': 'int16', 'unit': '°C'},
     'frost-heaterpower': {
         'address': 4071,
@@ -545,12 +545,12 @@ FUNCTIONS = {
     'max-temp-geo-heat-exchanger': {
         'address': 6242,
         'descr': 'Maximum temperature geo-heat exchanger',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(15, 400)', 'datatype': 'int16', 'unit': '°C'},
     'min-temp-geo-heat-exchanger': {
         'address': 6241,
         'descr': 'Minimum temperature geo-heat exchanger',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(0, 100)', 'datatype': 'int16', 'unit': '°C'},
     'modbus-control': {
         'address': 8000,
@@ -600,7 +600,7 @@ FUNCTIONS = {
     'postheater-setpoint': {
         'address': 6131,
         'descr': 'Postheater setpoint',
-        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+        'len': 1, 'rd': 3, 'wr': 6, 'scale': 10,
         'validate': 'between(150, 300)', 'datatype': 'int16', 'unit': ''},
     'pwm-exhaust-preset-0': {
         'address': 6011,
