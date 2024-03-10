@@ -86,7 +86,7 @@ FUNCTIONS = {
         'address': 6220,
         'descr': 'Analogue Input 1 Mode',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'analogue-input-1-vmax': {
         'address': 6222,
         'descr': 'Analogue input 1 Vmax',
@@ -101,7 +101,7 @@ FUNCTIONS = {
         'address': 6230,
         'descr': 'Analogue input 2 Mode',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'analogue-input-2-vmax': {
         'address': 6232,
         'descr': 'Analogue input 2 Vmax',
@@ -116,7 +116,7 @@ FUNCTIONS = {
         'address': 8011,
         'descr': 'Appliance reset',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'int16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'int16', 'unit': ''},
     'appliance-type-base-module': {
         'address': 4004,
         'descr': 'Appliance Type',
@@ -126,17 +126,17 @@ FUNCTIONS = {
         'address': 6104,
         'descr': 'Bypass boost',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'bypass-boost-switch-position': {
         'address': 6105,
         'descr': 'Bypass boost switch position',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2, 3)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2, 3)', 'datatype': 'uint16', 'unit': ''},
     'bypass-mode': {
         'address': 6100,
         'descr': 'Bypass mode',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
     'bypass-status': {
         'address': 4050,
         'descr': 'Bypass status',
@@ -231,7 +231,7 @@ FUNCTIONS = {
         'address': 6150,
         'descr': 'CO2 sensor mode',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'current-date-days': {
         'address': 4111,
         'descr': 'Current date',
@@ -251,7 +251,7 @@ FUNCTIONS = {
         'address': 6901,
         'descr': 'Date format',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'date-month-day': {
         'address': 6903,
         'descr': 'Date Month Day',
@@ -276,7 +276,7 @@ FUNCTIONS = {
         'address': 6243,
         'descr': 'Default geo heat exchanger Valve Position',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'device-type-uif-module': {
         'address': 4404,
         'descr': 'Device Type',
@@ -361,27 +361,27 @@ FUNCTIONS = {
         'address': 4521,
         'descr': 'Extension contact 1',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'extension-contact-2': {
         'address': 4522,
         'descr': 'Extension contact 2',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'extension-relay-output-1': {
         'address': 4541,
         'descr': 'Extension Relay output 1',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'extension-relay-output-2': {
         'address': 4542,
         'descr': 'Extension Relay output 2',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'external-heater-mode': {
         'address': 6130,
         'descr': 'External heater mode',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
     'fan-control-type': {
         'address': 4021,
         'descr': 'Fan control type',
@@ -392,11 +392,11 @@ FUNCTIONS = {
         'descr': 'Fan Frost Reduction',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
         'validate': 'between(0, 100)', 'datatype': 'uint16', 'unit': '%'},
-    'filter-warning': {
+    'filter-warning-reset': {
         'address': 8010,
         'descr': 'Reset filter warning',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 0xff)', 'datatype': 'int16', 'unit': ''},
+        'validate': 'in_list(0, 1, 0xff)', 'datatype': 'int16', 'unit': ''},
     'filters-used-in-hours': {
         'address': 4115,
         'descr': 'Filters used in hours',
@@ -441,7 +441,7 @@ FUNCTIONS = {
         'address': 6030,
         'descr': 'Flow type',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
     'frost-control-min-supply-temperature': {
         'address': 6111,
         'descr': 'Frost control minimum inlet temperature',
@@ -466,22 +466,22 @@ FUNCTIONS = {
         'address': 6240,
         'descr': 'Geo-heat exchanger',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'geo-heat-exchanger-status': {
         'address': 4150,
         'descr': 'Geo heat exchanger status',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
-        'validate': 'inList(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
     'geo-heat-exchanger-valve-output': {
         'address': 6244,
         'descr': 'Geo heat exchanger valve output',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2, 3)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2, 3)', 'datatype': 'uint16', 'unit': ''},
     'heat-recovery-appliance': {
         'address': 6171,
         'descr': 'CV (Central Heating) - HRA (Heat Recovery Appliance)',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'HRA-active-function': {
         'address': 4020,
         'descr': 'HRA Active Function',
@@ -511,12 +511,12 @@ FUNCTIONS = {
         'address': 6033,
         'descr': 'Imbalans allowed',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'language': {
         'address': 6900,
         'descr': 'Language',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'language-data-version-uif': {
         'address': 4410,
         'descr': 'Language Data version UIF',
@@ -556,12 +556,12 @@ FUNCTIONS = {
         'address': 8000,
         'descr': 'Modbus control switched on',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2)', 'datatype': 'int16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2)', 'datatype': 'int16', 'unit': ''},
     'modbus-interface-type': {
         'address': 7990,
         'descr': 'Modbus interface type',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2)', 'datatype': 'uint16', 'unit': ''},
     'modbus-slave-address': {
         'address': 7991,
         'descr': 'Modbus slave address',
@@ -646,7 +646,7 @@ FUNCTIONS = {
         'address': 6140,
         'descr': 'RHT (humidity) sensor mode',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'rel-humidity-sensor-sensitivity': {
         'address': 6141,
         'descr': 'RHT (humidity) sensor sensitivity',
@@ -666,27 +666,27 @@ FUNCTIONS = {
         'address': 6170,
         'descr': 'Signal output',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2, 3)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2, 3)', 'datatype': 'uint16', 'unit': ''},
     'signal-output-level': {
         'address': 4090,
         'descr': 'Signal output',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'standby-mode': {
         'address': 8003,
         'descr': 'Request Standby',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2)', 'datatype': 'int16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2)', 'datatype': 'int16', 'unit': ''},
     'status-filter': {
         'address': 4100,
         'descr': 'Status filter',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'status-preheater': {
         'address': 4060,
         'descr': 'Status preheater',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
-        'validate': 'inList(0, 1, 2, 3)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2, 3)', 'datatype': 'uint16', 'unit': ''},
     'sw-version-uif-module-4400': {
         'address': 4400,
         'descr': 'SW Version UIF Module',
@@ -716,17 +716,17 @@ FUNCTIONS = {
         'address': 8001,
         'descr': 'Request change in switch position',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1, 2, 3)', 'datatype': 'int16', 'unit': ''},
+        'validate': 'in_list(0, 1, 2, 3)', 'datatype': 'int16', 'unit': ''},
     'switch-type-input-1': {
         'address': 6200,
         'descr': 'Switch type Input 1',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'switch-type-input-2': {
         'address': 6210,
         'descr': 'Switch type Input 2',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'temperature-ntc-extension': {
         'address': 4520,
         'descr': 'Temperature NTC Extension',
@@ -741,7 +741,7 @@ FUNCTIONS = {
         'address': 6902,
         'descr': 'Time notation',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'total-flow-in-m3-per-hour': {
         'address': 4118,
         'descr': 'Total flow in m3/h',
@@ -751,7 +751,7 @@ FUNCTIONS = {
         'address': 6032,
         'descr': 'Use display as switch',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'inList(0, 1)', 'datatype': 'uint16', 'unit': ''},
+        'validate': 'in_list(0, 1)', 'datatype': 'uint16', 'unit': ''},
     'value-co2-sensor-1': {
         'address': 4201,
         'descr': 'Value CO2 sensor 1',
