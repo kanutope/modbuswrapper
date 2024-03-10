@@ -392,7 +392,7 @@ FUNCTIONS = {
         'descr': 'Fan Frost Reduction',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
         'validate': 'between(0, 100)', 'datatype': 'uint16', 'unit': '%'},
-    'filter-warning': {
+    'filter-warning-reset': {
         'address': 8010,
         'descr': 'Reset filter warning',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
