@@ -18,6 +18,8 @@ from time import sleep
 from logging import getLogger
 from socket import socket, AF_INET, SOCK_STREAM
 
+from modbuswrapper.ubbink_functions import minFlow, maxFlow
+
 
 _logger = getLogger(__name__)
 
