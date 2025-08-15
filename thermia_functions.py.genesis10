@@ -804,6 +804,11 @@ FUNCTIONS = {
         'descr': 'Currently running: First prioritised demand *1',
         'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
         'validate': '', 'datatype': 'int16', 'unit': ''},
+    'currently-running-demands': {
+        'address': 2, 
+        'descr': 'Currently running: Bit registers that shows the all the current running demands', 
+        'len': 1, 'rd': 4, 'wr': 0, 'scale': 1,
+        'validate': '','datatype': 'int16', 'unit': ''},
     'compressor-available-gears': {
         'address': 4,
         'descr': 'Compressor available gears *3',
