@@ -124,6 +124,7 @@ def modbus_client(node) -> ModbusBaseClient:
                 parity - str # 'N', 'E', 'O'
         """
         if file_exists(dev):
+            # issues encountered with exclusive lock on ttyAMA0, therefore exclusive=False
             return ModbusSerialClient(port=dev,
                                       framer=ModbusRtuFramer,
                                       baudrate=baudrate if baudrate is not None else 19200,
