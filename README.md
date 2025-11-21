@@ -4,8 +4,8 @@ ___
 
 ## context
 
-Having refurbished our new home including a brand new technical installation, 
-we've got a couple of (new) appliances that are modbus capable. So, I went 
+Having refurbished our new home including a brand new technical installation,
+we've got a couple of (new) appliances that are modbus capable. So, I went
 looking for a python based solution in order to get grip on those devices.
 
 I *stumbled* into [pyubbinkext](https://github.com/asillye/pyubbink) from
@@ -18,9 +18,17 @@ So, I did want to be able to talk with three (and even more) different devices,
 using both serial Modbus (RS485) and Modbus/TCP, in an as flexible as possible
 way = in a highly configurable way.
 
+## version history
+
+- v2.0            genesis 16 protocal added  
+I upgraded my Calibra 7 from Genesis 10.0 to 16.0. This version supports both
+protocols now.
+- v1.0            configuration.py moved away to application
+- v0.1            Standalone (submoduled) repo
+
 ## solution
 
-So, the solution I finally built is contained in the core module ***wrapper.py***.
+The solution I finally built is contained in the core module ***wrapper.py***.
 It has two main two components.
 
 The first component is the function `modbus_client(node)` which returns either a `ModbusSerialClient`
@@ -42,12 +50,13 @@ calls are made through the member method
 
 `modbus_interface.call(fName, action, value=None)` with
 
-    fname: a textual, user defined name for the Modbus function 
-            supported by the device, see 
+    fname: a textual, user defined name for the Modbus function
+            supported by the device, see
     action: either 'rd' or 'wr'
     value:  only to be set when action == 'wr'
 
 ## modbus function configuration
+
 On a per appliance (type) basis, I have created configurations files, describing
 the various modbus functions supported by that device. The data got extracted from
 documentation provided by the supplier. Each function got a user defined name (without spaces
@@ -60,21 +69,31 @@ for convenient usage in REST calls). E.g.:
         'validate': '', 'datatype': 'int16', 'unit': '°C'},
 
 The `modbus_interface` class only supports validation rules that are definied as
-member methods of the class - hence they can easily be extended - currently defined:
+member methods of the class - hence they can easily be extended - currently defined. This can easily be
+extended.
+
 - in_list(0, 1, 2)
 - between(0, 1000)
 
 For the function details see:
-- `alfen_functions.py` - [Alfen](https://alfen.com/file-download/download/public/1610)
+
+- `alfen_functions.py` - [Alfen](https://alfen.com/assets/download/blt64e1bba919b76c5e)
 - `ubbink_functions.py` - [Ubiflux (Brink)](https://www.brinkclimatesystems.nl/documenten/modbus-uwa2-b-uwa2-e-installation-regulations-gb-614882.pdf)
-- `thermia_functions.py` - [Thermia](https://www.geotherma.be/wp-content/uploads/2021/10/Thermia-Modbus-protocol_compressed.pdf)
+- `thermia_functions.py.genesis10` -
+[Thermia Genesis 10](https://www.geotherma.be/wp-content/uploads/2021/10/Thermia-Modbus-protocol_compressed.pdf)
+- `thermia_functions.py.genesis16` -
+[Thermia Genesis 16](https://www.geotherma.be/wp-content/uploads/2025/06/Modbus-protocol-for-Genesis-platform-16.pdf)
+
+> copy the applicable version to `therma_functions.py` (the actual file being used).
 
 *hoping the links will continue to work for a while ;-)*
 
 ## license
+
 [GNU lesser GPK](LICENSE)
 
 ## author
+
 Paul B - aka Kanutope
 
 All feedback more than welcome. Hope it helps :-).
