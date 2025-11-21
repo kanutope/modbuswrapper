@@ -129,6 +129,7 @@ def modbus_client(node) -> ModbusBaseClient:
                                       baudrate=baudrate if baudrate is not None else 19200,
                                       bytesize=bytesize if bytesize is not None else 8,
                                       parity=parity if parity is not None else "E",
+                                      exclusive=False,
                                       )
         else:
             return None
