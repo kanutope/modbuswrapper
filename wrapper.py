@@ -319,12 +319,14 @@ class modbus_interface:
             elif action == 'wr':
                 if fnc['datatype'][0:3] == 'int' or fnc['datatype'][0:4] == 'uint':
                     cast = int
+                    self.value(int(float(value)))
                 elif fnc['datatype'][0:3] == 'flt':
                     cast = float
+                    self.value(float(value))
                 else:
                     cast = self.null
 
-                self.value(cast(value))
+                # self.value(cast(value))
 
                 if not self.validate(fnc['validate']):
                     raise UserWarning(f"%%% Value {self.value()} is out of range {fnc['validate']}")
