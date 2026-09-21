@@ -5,6 +5,10 @@
     - class `modbus_interface` which incorporates the previously created ModbusXXXClient.
       The actual modbus read or write calls are made through its member method 'modbus_interface.call'
 """
+import os
+import stat
+from io import open
+
 from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 from pymodbus.client.base import ModbusBaseClient
 from pymodbus.framer.rtu_framer import ModbusRtuFramer
@@ -13,7 +17,6 @@ from pymodbus.payload import BinaryPayloadDecoder, BinaryPayloadBuilder
 from pymodbus.exceptions import ModbusException
 from pymodbus.pdu import ExceptionResponse
 
-from io import open
 from time import sleep
 from logging import getLogger
 from socket import socket, AF_INET, SOCK_STREAM
@@ -83,14 +86,37 @@ class payloadDecoder:
         }
 
 
-def file_exists(node):
+def node_exists(node):
     try:
-        with open(file=node, mode="rb") as file:
-            file.close()
-    except OSError as ex:
-        raise OSError(f"%%% Unable to open device {node} -> {ex.strerror}")
+        st = os.stat(node)
 
-    return True
+        # 1. Must be a character device
+        if not stat.S_ISCHR(st.st_mode):
+            txt = f"%%% {node} is not a character device"
+            _logger.error(txt)
+            return False
+
+        # 2. Test if the CURRENT process effectively has R/W access
+        if not os.access(node, os.R_OK | os.W_OK):
+            txt = f"%%% Process lacks R/W permissions for {node}"
+            _logger.error(txt)
+            return False
+
+        # 3. Explicit check: verify file group permissions match active process GIDs
+        group_rw = bool(st.st_mode & stat.S_IRGRP) and bool(st.st_mode & stat.S_IWGRP)
+        if group_rw:
+            process_gids = set([os.getegid()] + os.getgroups())
+            if st.st_gid not in process_gids and os.geteuid() != 0:
+                txt = f"%%% Process GIDs {process_gids} do not include device group {st.st_gid}"
+                _logger.error(txt)
+                return False
+
+        return True
+
+    except OSError as ex:
+        txt = f"%%% Device {node} unavailable -> {ex.strerror}"
+        _logger.error(txt)
+        return False
 
 
 def socket_exists(host, port):
@@ -99,13 +125,19 @@ def socket_exists(host, port):
 
     try:
         s.connect((host, port))
+        s.close()
+        return True
+    
+    except TimeoutError as ex:
+        txt  =f"%%% Connecting {host}:{port} timed out -> {ex.strerror}"
+        _logger.error(txt)
+        return False
     except OSError as ex:
         # OSError: [Errno 113] No route to host
         # ConnectionRefusedError: [Errno 111] Connection refused
-        raise OSError(f"%%% Unable to connect {host}:{port} -> {ex.strerror}")
-
-    s.close()
-    return True
+        txt = f"%%% Unable to connect {host}:{port} -> {ex.strerror}"
+        _logger.error(txt)
+        return False
 
 
 def modbus_client(node) -> ModbusBaseClient:
@@ -123,7 +155,7 @@ def modbus_client(node) -> ModbusBaseClient:
                 bytesize - int
                 parity - str # 'N', 'E', 'O'
         """
-        if file_exists(dev):
+        if node_exists(dev):
             # issues encountered with exclusive lock on ttyAMA0, therefore exclusive=False
             return ModbusSerialClient(port=dev,
                                       framer=ModbusRtuFramer,
@@ -169,7 +201,9 @@ def modbus_client(node) -> ModbusBaseClient:
                         retries=node['retries'] if 'retries' in node else None,
                         )
     else:
-        raise UserWarning(f"%%% Unsupported device {node}, hence quitting")
+        txt = f"%%% Unsupported device {node}, hence quitting"
+        _logger.warning(txt)
+        return None
 
 
 def sync_call(client, function, addr, param, slave):
@@ -187,7 +221,8 @@ def sync_call(client, function, addr, param, slave):
     try:
         rr = function(addr, param, slave)
     except ModbusException as exc:
-        _logger.error(f"*** pymodbus exception: {exc}")
+        txt = f"*** pymodbus exception: {exc}"
+        _logger.error(txt)
         raise exc
     if rr.isError():
         txt = "*** pymodbus returned an error!"
@@ -344,11 +379,14 @@ class modbus_interface:
             if self._delay is not None:
                 sleep(self._delay)
 
-            _logger.debug(f"Function={fname} action={action} fnc={fnc[action]} address={fnc['address']}")
+            txt = f"Function={fname} action={action} fnc={fnc[action]} address={fnc['address']}"
+            _logger.debug(txt)
+            
             rr = sync_call(self.client, self._selector[fnc[action]], fnc['address'], _par, slave)
 
             if action == 'rd':
-                _logger.debug(f"Function {fname} -> {self.decode_response(fname, rr)}")
+                txt = f"Function {fname} -> {self.decode_response(fname, rr)}"
+                _logger.debug(txt)
 
             return rr
         else:
@@ -360,7 +398,9 @@ class modbus_interface:
                 fname - str # the label given to the modbus request
                 rr # variable returned from read requeset
         """
-        _logger.debug(f"--- decode_response type(rr)={type(rr)}")
+        txt = f"--- decode_response type(rr)={type(rr)}"
+        _logger.debug(txt)
+        
         if fname in self._functions:
             fnc = self._functions[fname]
             if fnc['datatype'] == 'bits':
