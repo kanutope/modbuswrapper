@@ -2,8 +2,8 @@ from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
 from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
 from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
 from modbuswrapper.wrapper import modbus_client, modbus_interface
-from modbuswrapper.configuration import NODES
 import modbuswrapper.example.implement as implement
+from modbus.configuration import NODES
 
 from time import sleep
 from sys import argv

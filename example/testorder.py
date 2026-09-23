@@ -1,13 +1,12 @@
+from sys import argv
+from getopt import gnu_getopt
+from logging import basicConfig, DEBUG, INFO, ERROR
+
 from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
 from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
 from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
 from modbuswrapper.wrapper import modbus_client, modbus_interface
-from modbuswrapper.configuration import NODES
-
-from time import sleep
-from sys import argv
-from getopt import gnu_getopt
-from logging import basicConfig, DEBUG, INFO, ERROR
+from modbus.configuration import NODES
 
 
 def read_parameter(iface: modbus_interface, fName: str):
@@ -19,53 +18,51 @@ def read_parameter(iface: modbus_interface, fName: str):
 
 def init_clients():
     clnts = {}
-    for el in NODES:
-        DEV = NODES[el]['serial'] if 'serial' in NODES[el] else NODES[el]['tcp'] if 'tcp' in NODES[el] else None
-        clnts[el] = modbus_client(DEV)
+    for name, node in NODES.items():
+        DEV = node['serial'] if 'serial' in node else node['tcp'] if 'tcp' in node else None
+        clnts[name] = modbus_client(DEV)
 
     return clnts
 
 
 def init_interfaces(clnts, bytorder, wordorder):
     interfaces = {}
-    for dev in NODES:
-        if dev == 'vigor':
+    for name, node in NODES.items():
+        if name == 'vigor':
             fnc = FNC_ubbink
-        elif dev == 'calibra':
+        elif name == 'calibra':
             fnc = FNC_thermia
-        elif dev == 'alfen':
+        elif name == 'alfen':
             fnc = FNC_alfen
         else:
-            raise UserWarning(f"%%% Unsupported device type '{dev}' in configuration file")
+            raise UserWarning(f"%%% Unsupported device type '{name}' in configuration file")
 
-        interfaces[dev] = modbus_interface(clnts[dev], NODES[dev]['slave'], functions=fnc,
-                                           delay=NODES[dev]['delay'] if 'delay' in NODES[dev] else 0,
+        interfaces[name] = modbus_interface(clnts[name], node['slave'], functions=fnc,
+                                           delay=node['delay'] if 'delay' in node else 0,
                                            byteorder=bytorder,
                                            wordorder=wordorder)
     return interfaces
 
 
-"""
-modbuswrapper/alfen_functions.py:    'conf-modbus-maxcurrent': {
-modbuswrapper/alfen_functions.py:        'len': 2, 'rd': 3, 'wr': 16, 'scale': 1,
-modbuswrapper/alfen_functions.py:        'validate': 'between(5, 13)', 'datatype': 'flt32', 'unit': 'A'},
-modbuswrapper/alfen_functions.py:    'conf-charge-using-1-or-3-phases': {
-modbuswrapper/alfen_functions.py:        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-modbuswrapper/alfen_functions.py:        'validate': 'in_list(1, 3)', 'datatype': 'uint16', 'unit': 'phases'},
-modbuswrapper/alfen_functions.py:    'conf-modbus-max-current-valid-time': {
-modbuswrapper/alfen_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 's'},
-modbuswrapper/thermia_functions.py:    'compressor-operating-hours': {
-modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int32', 'unit': 'hrs'},
-modbuswrapper/thermia_functions.py:    'tap-water-operating-hours': {
-modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int32', 'unit': 'hrs'},
-modbuswrapper/thermia_functions.py:    'maximum-allowed-gear-in-heating': {
-modbuswrapper/thermia_functions.py:        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int16', 'unit': ''},
-modbuswrapper/ubbink_functions.py:    'total-flow-in-m3/h': {
-modbuswrapper/ubbink_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 'm3/h'},
-modbuswrapper/ubbink_functions.py:    'operating-time': {
-modbuswrapper/ubbink_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 'hrs'},
-"""
+# modbuswrapper/alfen_functions.py:    'conf-modbus-maxcurrent': {
+# modbuswrapper/alfen_functions.py:        'len': 2, 'rd': 3, 'wr': 16, 'scale': 1,
+# modbuswrapper/alfen_functions.py:        'validate': 'between(5, 13)', 'datatype': 'flt32', 'unit': 'A'},
+# modbuswrapper/alfen_functions.py:    'conf-charge-using-1-or-3-phases': {
+# modbuswrapper/alfen_functions.py:        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+# modbuswrapper/alfen_functions.py:        'validate': 'in_list(1, 3)', 'datatype': 'uint16', 'unit': 'phases'},
+# modbuswrapper/alfen_functions.py:    'conf-modbus-max-current-valid-time': {
+# modbuswrapper/alfen_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 's'},
+# modbuswrapper/thermia_functions.py:    'compressor-operating-hours': {
+# modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int32', 'unit': 'hrs'},
+# modbuswrapper/thermia_functions.py:    'tap-water-operating-hours': {
+# modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int32', 'unit': 'hrs'},
+# modbuswrapper/thermia_functions.py:    'maximum-allowed-gear-in-heating': {
+# modbuswrapper/thermia_functions.py:        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
+# modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int16', 'unit': ''},
+# modbuswrapper/ubbink_functions.py:    'total-flow-in-m3/h': {
+# modbuswrapper/ubbink_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 'm3/h'},
+# modbuswrapper/ubbink_functions.py:    'operating-time': {
+# modbuswrapper/ubbink_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 'hrs'},
 
 functions = {
     'alfen': {
@@ -99,6 +96,7 @@ if __name__ == '__main__':
     clients = init_clients()
 
     i = 0
+    par = 0
     wr = False
     ifaces = None
     for opt, arg in optList:
@@ -123,34 +121,31 @@ if __name__ == '__main__':
     print(order[i])
 
     if wr:
-        """'conf-modbus-maxcurrent': {}, maxcurr = 13.0
-        """
-        v = (13 - par*0.25)
-        dev = 'alfen'
+        # 'conf-modbus-maxcurrent': {}, maxcurr = 13.0
+        v = 13 - par*0.25
+        device = 'alfen'
         func = 'conf-modbus-maxcurrent'
-        rr = ifaces[dev].call(func, 'wr', f"{v}")
-        print(f"{func}({v}) -> {rr}")
-        read_parameter(ifaces[dev], func)
+        ret = ifaces[device].call(func, 'wr', f"{v}")
+        print(f"{func}({v}) -> {ret}")
+        read_parameter(ifaces[device], func)
 
-        """'conf-charge-using-1-or-3-phases': {}, phases = 1
-        """
-        v = (1 + (par % 2)*2)
-        dev = 'alfen'
+        # 'conf-charge-using-1-or-3-phases': {}, phases = 1
+        v = 1 + (par % 2)*2
+        device = 'alfen'
         func = 'conf-charge-using-1-or-3-phases'
-        rr = ifaces[dev].call(func, 'wr', f"{v}")
-        print(f"{func}({v}) -> {rr}")
-        read_parameter(ifaces[dev], func)
+        ret = ifaces[device].call(func, 'wr', f"{v}")
+        print(f"{func}({v}) -> {ret}")
+        read_parameter(ifaces[device], func)
 
-        """'maximum-allowed-gear-in-heating': {}, maxgear = 9
-        """
-        v = (9 - par)
-        dev = 'calibra'
+        # 'maximum-allowed-gear-in-heating': {}, maxgear = 9
+        v = 9 - par
+        device = 'calibra'
         func = 'maximum-allowed-gear-in-heating'
-        rr = ifaces[dev].call(func, 'wr', f"{v}")
-        print(f"{func}({v}) -> {rr}")
-        read_parameter(ifaces[dev], func)
+        ret = ifaces[device].call(func, 'wr', f"{v}")
+        print(f"{func}({v}) -> {ret}")
+        read_parameter(ifaces[device], func)
     else:
-        for appl in functions:
-            for func in functions[appl]:
-                print(f"appliance [{appl}] -> function [{func}]")
-                read_parameter(ifaces[appl], func)
+        for name, fies in functions.items():
+            for func in fies:
+                print(f"appliance [{name}] -> function [{func}]")
+                read_parameter(ifaces[name], func)

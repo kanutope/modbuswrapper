@@ -1,4 +1,4 @@
-"""modbuswrapper
+""" modbuswrapper
 
     having two main components:
     - function `modbus_client(node)` which returns either a `ModbusSerialClient` or `ModbusTCPClient` object.
@@ -7,7 +7,10 @@
 """
 import os
 import stat
-from io import open
+
+from time import sleep
+from logging import getLogger
+from socket import socket, AF_INET, SOCK_STREAM
 
 from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 from pymodbus.client.base import ModbusBaseClient
@@ -16,10 +19,6 @@ from pymodbus.framer.socket_framer import ModbusSocketFramer
 from pymodbus.payload import BinaryPayloadDecoder, BinaryPayloadBuilder
 from pymodbus.exceptions import ModbusException
 from pymodbus.pdu import ExceptionResponse
-
-from time import sleep
-from logging import getLogger
-from socket import socket, AF_INET, SOCK_STREAM
 
 from modbuswrapper.ubbink_functions import minFlow, maxFlow
 
