@@ -1,15 +1,11 @@
-from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
-from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
-from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
-from modbuswrapper.wrapper import modbus_client, modbus_interface
-import modbuswrapper.example.implement as implement
-from modbus.configuration import NODES
-
-from time import sleep
-from sys import argv
 from getopt import gnu_getopt
-from logging import basicConfig, DEBUG, INFO, ERROR
+from logging import DEBUG, ERROR, INFO, basicConfig
+from sys import argv
+from time import sleep
 
+from modbus.configuration import NODES
+from modbuswrapper.example import implement
+from modbuswrapper.wrapper import ModbusWrapper
 
 basicConfig(level=INFO)
 
@@ -95,35 +91,19 @@ selector = {
     },
 }
 
-clients = {}
-for el in NODES:
-    DEV = NODES[el]['serial'] if 'serial' in NODES[el] else NODES[el]['tcp'] if 'tcp' in NODES[el] else None
-    clients[el] = modbus_client(DEV)
 
-ifaces = {}
-for dev in NODES:
-    if dev == 'vigor':
-        fnc = FNC_ubbink
-    elif dev == 'calibra':
-        fnc = FNC_thermia
-    elif dev == 'alfen':
-        fnc = FNC_alfen
-    else:
-        raise UserWarning(f"%%% Unsupported device type '{dev}' in configuration file")
-
-    ifaces[dev] = modbus_interface(clients[dev], NODES[dev]['slave'], functions=fnc,
-                                   delay=NODES[dev]['delay'] if 'delay' in NODES[dev] else 0,
-                                   byteorder=NODES[dev]['byteorder'] if 'byteorder' in NODES[dev] else '>',
-                                   wordorder=NODES[dev]['wordorder'] if 'wordorder' in NODES[dev] else '>')
+# Initialize physical devices
+mdbwrapper = ModbusWrapper(NODES)
 
 
 def read_all(xfc=None, cnt=10):
     if xfc is None:
-        for fName in ifaces:
+        _all = mdbwrapper.all_interfaces()
+        for fName, iface in _all.items():
             print("*******")
             print(f"{fName}")
             print("*******")
-            implement.read_all(ifaces[fName], cnt)
+            implement.read_all(iface, cnt)
     else:
         print("*******")
         implement.read_all(xfc, cnt)
@@ -220,13 +200,13 @@ def unset_cooling(iface):
 
 
 def exec_alfen(selection):
-    dName = 'alfen'
-    iface = ifaces[dName]
+    appl = 'alfen'
+    iface = mdbwrapper.get_interface(appl)
     for x in selection:
-        print(f"{dName} selection: {x}")
+        print(f"{appl} selection: {x}")
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
-            for fName in selector[dName][idx]:
+            for fName in selector[appl][idx]:
                 implement.read_parameter(iface, fName)
         else:
             try:
@@ -239,13 +219,13 @@ def exec_alfen(selection):
 
 
 def exec_calibra(selection):
-    dName = 'calibra'
-    iface = ifaces[dName]
+    appl = 'calibra'
+    iface = mdbwrapper.get_interface(appl)
     for x in selection:
-        print(f"{dName} selection: {x} type is {type(x)}")
+        print(f"{appl} selection: {x} type is {type(x)}")
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
-            for fName in selector[dName][idx]:
+            for fName in selector[appl][idx]:
                 implement.read_parameter(iface, fName)
         elif x == 'a':
             read_all(iface, 999)
@@ -254,34 +234,43 @@ def exec_calibra(selection):
         elif x == 'u':
             unset_cooling(iface)
         else:
-            print(f"{dName}: *not* covered selection {x}")
+            print(f"{appl}: *not* covered selection {x}")
 
 
 def exec_vigor(selection):
-    dName = 'vigor'
-    iface = ifaces[dName]
+    appl = 'vigor'
+    iface = mdbwrapper.get_interface(appl)
     for x in selection:
-        print(f"{dName} selection: {x}")
+        print(f"{appl} selection: {x}")
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
-            for fName in selector[dName][idx]:
+            for fName in selector[appl][idx]:
                 implement.read_parameter(iface, fName)
         elif x == 'r':
             implement.flow_preset(iface)
         elif x == 'p':
             implement.flow_preset(iface, [140, 200, 260, 385])
         else:
-            print(f"{dName}: *not* covered selection {x}")
+            print(f"{appl}: *not* covered selection {x}")
 
 
-optList, args = gnu_getopt(argv, 'a:c:v:', ['alfen=', 'calibra=', 'vigor='])
+optList, args = gnu_getopt(argv, 'a:c:v:t', ['alfen=', 'calibra=', 'vigor=', 'test'])
 
 for a in args:
     print(f"args -> {a}")
 
 for opt, arg in optList:
     sel = arg.split(',')
-    if opt in ('-a', '--alfen'):
+    if opt in ('-t', '--test'):
+        _all = mdbwrapper.all_interfaces()
+        print(f"type(_all): {type(_all)}")
+        for appl, iface in _all.items():
+            if iface is not None:
+                for fname, attr in iface.functions().items():
+                    attr["function"] = fname
+                    print(f"appl: {appl} -> {fname}")
+
+    elif opt in ('-a', '--alfen'):
         exec_alfen(sel)
     elif opt in ('-c', '--calibra'):
         exec_calibra(sel)

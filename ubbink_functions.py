@@ -1,6 +1,3 @@
-minFlow = 50
-maxFlow = 385
-
 FUNCTIONS = {
     'exhaust-air-current-flow': {
         'address': 4042,
@@ -431,7 +428,7 @@ FUNCTIONS = {
         'address': 8002,
         'descr': 'Desired flow rate setting',
         'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-        'validate': 'between(minFlow, maxFlow)', 'datatype': 'int16', 'unit': 'm3/h'},
+        'validate': 'between(50, 385)', 'datatype': 'int16', 'unit': 'm3/h'},
     'flow-switch-position': {
         'address': 4080,
         'descr': 'Flow switch position',

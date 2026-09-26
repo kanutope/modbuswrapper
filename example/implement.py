@@ -1,22 +1,22 @@
 from time import sleep
 
-from modbuswrapper.wrapper import modbus_interface
+from modbuswrapper.wrapper import ModbusInterface
 
 
-def read_parameter(iface: modbus_interface, fName: str):
+def read_parameter(iface: ModbusInterface, fName: str):
     rr = iface.call(fName, 'rd')
     cur = iface.decode_response(fName, rr)
     print(f"Parameter {fName}: {cur}")
     return cur
 
 
-def heat_curve(iface: modbus_interface):
+def heat_curve(iface: ModbusInterface):
     for i in range(7):
         fName = f"set-point-heat-curve-y-coordinate-{i+1}"
         read_parameter(iface, fName)
 
 
-def comfort_wheel(iface: modbus_interface, val=None):
+def comfort_wheel(iface: ModbusInterface, val=None):
     fName = 'comfort-wheel-setting'
     cur = read_parameter(iface, fName)
 
@@ -28,7 +28,7 @@ def comfort_wheel(iface: modbus_interface, val=None):
         read_parameter(iface, fName)
 
 
-def toggle_tap_water(iface: modbus_interface, flag=None):
+def toggle_tap_water(iface: ModbusInterface, flag=None):
     fName = 'enable-tap-water'
     cur = read_parameter(iface, fName)
 
@@ -39,19 +39,19 @@ def toggle_tap_water(iface: modbus_interface, flag=None):
         read_parameter(iface, fName)
 
 
-def test_interface(iface: modbus_interface, lst):
+def test_interface(iface: ModbusInterface, lst):
     for fName in lst:
         read_parameter(iface, fName)
 
 
-def read_all(iface: modbus_interface, cnt=999):
+def read_all(iface: ModbusInterface, cnt=999):
     for fName in iface.functions():
         if cnt > 0:
             read_parameter(iface, fName)
         cnt = cnt - 1
 
 
-def modbus_control(iface: modbus_interface, mode=None):
+def modbus_control(iface: ModbusInterface, mode=None):
     fName = 'modbus-control'
     if mode is None:
         return read_parameter(iface, fName)
@@ -59,7 +59,7 @@ def modbus_control(iface: modbus_interface, mode=None):
         return iface.call(fName, 'wr', mode)
 
 
-def flow_rate_setting(iface: modbus_interface, spd=None):
+def flow_rate_setting(iface: ModbusInterface, spd=None):
     fName = 'flow-rate-setting'
     if spd is None:
         return read_parameter(iface, fName)
@@ -67,7 +67,7 @@ def flow_rate_setting(iface: modbus_interface, spd=None):
         return iface.call(fName, 'wr', spd)
 
 
-def switch_position(iface: modbus_interface, swtch=None):
+def switch_position(iface: ModbusInterface, swtch=None):
     fname = 'switch-position'
     if swtch is None:
         return read_parameter(iface, fname)
@@ -75,7 +75,7 @@ def switch_position(iface: modbus_interface, swtch=None):
         return iface.call(fname, 'wr', swtch)
 
 
-def flow_preset(iface: modbus_interface, spds=None):
+def flow_preset(iface: ModbusInterface, spds=None):
     ret = []
     for i in range(4):
         fName = f"flow-preset-{i}"
@@ -88,7 +88,7 @@ def flow_preset(iface: modbus_interface, spds=None):
     return ret
 
 
-def set_max_current(iface: modbus_interface, curr=None):
+def set_max_current(iface: ModbusInterface, curr=None):
     fName = 'conf-modbus-maxcurrent'
 
     if curr == 0:
