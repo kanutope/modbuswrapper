@@ -395,8 +395,6 @@ class ModbusWrapper:
     def all_interfaces(self):
         """ return interfaces for all (defined) appliances
         """
-        txt = f"self._ifaces: {type(self._ifaces)}"
-        print(txt)
         return self._ifaces
 
 class ModbusInterface:
