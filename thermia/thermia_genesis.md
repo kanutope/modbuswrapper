@@ -7,19 +7,19 @@ The Thermia modbus protocol documentation is always (until now) provided with th
 Their are first four sections (3.1 to 3.4) that lists all available (accessible) registers, each grouped according to:
 
 | ID  | call type                    | call function        | read | write | de facto offset   |
-|-----+------------------------------+----------------------+------+-------+-------------------+
+|-----|------------------------------|----------------------|------|-------|-------------------|
 | 3.1 | Read/Write Digital Registers | COIL STATUS          |  1   |  5    | 00001             |
 |     |                              |(multiple coils)      |      | 15    |                   |
 | 3.2 | Read Digital Registers       | INPUT STATUS         |  2   | -     | 10001             |
 | 3.3 | Read Analog Registers        | INPUT REGISTERS      |  4   | -     | 30001             |
 | 3.4 | Read/Write Analog Registers  | HOLDING REGISTERS    |  3   |  6    | 40001             |
 |     |                              | (multiple registers) |      | 16    |                   |
-+-----+------------------------------+----------------------+------+-------+-------------------+
+|-----|------------------------------|----------------------|------|-------|-------------------|
 
 Next comes a number of sections that repeat exactly the same registers, though this time functionally grouped:
 
 | ID  | class           |
-+-----+-----------------+
+|-----|-----------------|
 | 4.1 | Heat pump unit  |
 | 5.1 | Heating system  |
 | 5.2 | Mix valve       |
@@ -29,7 +29,7 @@ Next comes a number of sections that repeat exactly the same registers, though t
 | 7.2 | Cooling circuit |
 | 8.1 | Pool            |
 | 9.1 | Electric meter  |
-+-----+-----------------+
+|-----|-----------------|
 
 Strangely enough, in the various genesis modbus protocol versions that I have worked through, there are always
 discrepancies between the two parts. Some registers are documented in one of the 3.x section while they are
@@ -62,7 +62,7 @@ Some statistics
 | ref. | section   | de-facto | description |
 |------|-----------|----------|-------------|
 | 6.1  | Tap water | 30048    | Tap water valve position (%) |
-| 6.2  |HGW        | 30048    | HGW mix valve position (%)   |
+| 6.2  | HGW       | 30048    | HGW mix valve position (%)   |  
 
 
     - 20    not known/ defined in version 10

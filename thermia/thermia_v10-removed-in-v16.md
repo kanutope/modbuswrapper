@@ -3,7 +3,7 @@
 The following registers (calls/functions) were in later versions removed from the genesis protocol definition between v10.
 
 | ref | class | diplomat inverter | address | de facto address | descr | rd | wr | aka |
-+-----+-------+-------------------+---------+------------------+-------+----+----+-----+
+|-----|-------|:-----------------:|--------:|-----------------:|-------|:--:|:--:|-----|
 | 4.1 | Heat pump unit | X | 4 | 5 | Enable internal additional heater | 1 | 5 | enable-internal-additional-heater |
 | 4.1 | Heat pump unit | X | 53 | 10054 | Internal additional heater alarm | 2 | 0 | internal-additional-heater-alarm |
 | 4.1 | Heat pump unit | X | 81 | 10082 | Tap water end tank sensor alarm | 2 | 0 | tap-water-end-tank-sensor-alarm |
@@ -112,4 +112,3 @@ The following registers (calls/functions) were in later versions removed from th
 | 5.6 | Mix valve 5 | X | 254 | 40255 | Set point curve, Y-coordinate 5 Mix valve 5 | 3 | 6 | set-point-curve-y-coordinate-5-mix-valve-5 |
 | 5.6 | Mix valve 5 | X | 255 | 40256 | Set point curve, Y-coordinate 6 Mix valve 5 | 3 | 6 | set-point-curve-y-coordinate-6-mix-valve-5 |
 | 5.6 | Mix valve 5 | X | 256 | 40257 | Set point curve, Y-coordinate 7 Mix valve 5 (lowest outdoor temperature) | 3 | 6 | set-point-curve-y-coordinate-7-mix-valve-5 |
-+-----+-------+-------------------+---------+------------------+-------+----+----+-----+
