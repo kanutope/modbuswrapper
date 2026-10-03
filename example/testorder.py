@@ -30,7 +30,7 @@ def init_interfaces(clnts, bytorder, wordorder):
     for name, node in NODES.items():
         if name == 'vigor':
             fnc = FNC_ubbink
-        elif name == 'calibra':
+        elif name == 'thermia':
             fnc = FNC_thermia
         elif name == 'alfen':
             fnc = FNC_alfen
@@ -70,7 +70,7 @@ functions = {
         'conf-charge-using-1-or-3-phases': {},
         'conf-modbus-max-current-valid-time': {},
     },
-    'calibra': {
+    'thermia': {
         'compressor-operating-hours': {},
         'tap-water-operating-hours': {},
         'maximum-allowed-gear-in-heating': {},
@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
         # 'maximum-allowed-gear-in-heating': {}, maxgear = 9
         v = 9 - par
-        device = 'calibra'
+        device = 'thermia'
         func = 'maximum-allowed-gear-in-heating'
         ret = ifaces[device].call(func, 'wr', f"{v}")
         print(f"{func}({v}) -> {ret}")

@@ -10,7 +10,7 @@ from modbuswrapper.wrapper import ModbusWrapper
 basicConfig(level=INFO)
 
 selector = {
-    'calibra': {
+    'thermia': {
         1: ['enable-brine-out-monitoring',
             'enable-brine-pump-continuous-operation',
             'enable-variable-speed-mode-for-brine-pump',
@@ -159,15 +159,15 @@ for i in range(4):
 
 # implement.switch_position(iface, 2)
 
-""" Calibra """
-# iface = ifaces['calibra']
+""" thermia """
+# iface = ifaces['thermia']
 # implement.toggle_tap_water(iface, 1)
 # implement.comfort_wheel(iface, 21)
 # implement.comfort_wheel(iface)
 # implement.heat_curve(iface)
 # read_all(iface, 999)
 
-# implement.test_interface(iface, selector['calibra'][idx])
+# implement.test_interface(iface, selector['thermia'][idx])
 
 """ Alfen """
 
@@ -218,8 +218,8 @@ def exec_alfen(selection):
                 raise UserWarning(f"%%% Cannot convert '{x}' into value")
 
 
-def exec_calibra(selection):
-    appl = 'calibra'
+def exec_thermia(selection):
+    appl = 'thermia'
     iface = mdbwrapper.get_interface(appl)
     for x in selection:
         print(f"{appl} selection: {x} type is {type(x)}")
@@ -254,14 +254,14 @@ def exec_vigor(selection):
             print(f"{appl}: *not* covered selection {x}")
 
 
-optList, args = gnu_getopt(argv, 'a:c:v:t', ['alfen=', 'calibra=', 'vigor=', 'test'])
+optList, args = gnu_getopt(argv, 'a:t:v:m', ['alfen=', 'thermia=', 'vigor=', 'misc'])
 
 for a in args:
     print(f"args -> {a}")
 
 for opt, arg in optList:
     sel = arg.split(',')
-    if opt in ('-t', '--test'):
+    if opt in ('-m', '--misc'):
         _all = mdbwrapper.all_interfaces()
         print(f"type(_all): {type(_all)}")
         for appl, iface in _all.items():
@@ -272,7 +272,7 @@ for opt, arg in optList:
 
     elif opt in ('-a', '--alfen'):
         exec_alfen(sel)
-    elif opt in ('-c', '--calibra'):
-        exec_calibra(sel)
+    elif opt in ('-t', '--thermia'):
+        exec_thermia(sel)
     elif opt in ('-v', '--vigor'):
         exec_vigor(sel)

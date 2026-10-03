@@ -357,28 +357,28 @@ class ModbusWrapper:
                 self._ifaces[appl] = None
             else:
                 if appl == "vigor":
-                    fnc = FNC_ubbink
-                elif appl == "calibra":
-                    fnc = FNC_thermia
+                    fncs = FNC_ubbink
+                elif appl == "thermia":
+                    fncs = FNC_thermia
                 elif appl == "alfen":
-                    fnc = FNC_alfen
+                    fncs = FNC_alfen
                 else:
-                    fnc = {}
+                    fncs = {}
 
-                if fnc == {}:
+                if fncs == {}:
                     txt = f"%%% Unsupported appliance type '{appl}' in configuration file"
                     _logger.warning(txt)
                 else:
-                    for fname, params in fnc.items():
+                    for fname, params in fncs.items():
                         if params.get('validate', False) and params['validate'] != '':
-                            fnc[fname]['_validator'] = ModbusWrapper.factory.compile(params['validate'])
+                            fncs[fname]['_validator'] = ModbusWrapper.factory.compile(params['validate'])
                         else:
-                            fnc[fname]['_validator'] = None
+                            fncs[fname]['_validator'] = None
 
                     self._ifaces[appl] = ModbusInterface(
                         client,
                         self._nodes[appl]["slave"],
-                        functions=fnc,
+                        functions=fncs,
                         delay=self._nodes[appl].get("delay", 0),
                         byteorder=self._nodes[appl].get("byteorder", ">"),
                         wordorder=self._nodes[appl].get("wordorder", ">"),
