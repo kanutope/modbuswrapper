@@ -1,7 +1,7 @@
 ## new to v16
 
 | ref | class | address | de facto | description | rd | wr | aka |
-|----|----|----|----|----|----|----|----|
+|:---:|-------|--------:|---------:|-------------|:-:|:-:|----|
 | 4.1 | Heat pump unit | 59  | 60  | Enable continuous operation mode for condenser pump. | 1  | 5  | enable-condensor-pump-continuous-operation |
 | 4.1 | Heat pump unit | 60  | 61  | Allow current limiter to restrict external additional heater | 1  | 5  | allow-limiter-on-external-additional-heater |
 | 4.1 | Heat pump unit | 61  | 62  | Allow current limiter to restrict secondary heat pump units | 1  | 5  | allow-limiter-on-secondary-heat-pumps |

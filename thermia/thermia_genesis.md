@@ -60,7 +60,7 @@ Some statistics
     - 1     de-facto address occurs twice
 
 | ref. | section   | de-facto | description |
-|------|-----------|----------|-------------|
+|:----:|-----------|---------:|-------------|
 | 6.1  | Tap water | 30048    | Tap water valve position (%) |
 | 6.2  | HGW       | 30048    | HGW mix valve position (%)   |  
 
@@ -73,7 +73,7 @@ Some statistics
     - 1     register (function) retained while it is assigned to *mega* in version 10
 
 | ref. | section   | de-facto | description |
-|------|-----------|----------|-------------|
+|:----:|-----------|---------:|-------------|
 | 7.4 | Surplus heat | 10239 | Surplus heat directional valve position (EM) |
 
 ## version 17.1
@@ -88,5 +88,5 @@ Some statistics:
             the same as in version 16
 
 | ref. | section   | de-facto | description |
-|------|-----------|----------|-------------|
+|:----:|-----------|---------:|-------------|
 | 7.4 | Surplus heat | 10239 | Surplus heat directional valve position (EM) |
