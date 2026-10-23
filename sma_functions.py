@@ -1,5 +1,4 @@
-﻿# function	address	slave  descr datatype	len	rd	wr	unit
-FUNCTIONS = {
+﻿FUNCTIONS = {
     "version-number-sma-modbus-profil": {
         "address": 30001,
         "descr": "Version number SMA Modbus-Profil",
@@ -41,7 +40,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "Wh",
         "scale": 1,
     },
     "maximum-charging-current": {
@@ -52,7 +51,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "ms",
+        "unit": "A",
         "scale": 1,
     },
     "control-of-battery-charging-via-comm-available_0": {
@@ -74,7 +73,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "Hz",
+        "unit": "-",
         "scale": 1,
     },
     "current-battery-state-of-charge": {
@@ -85,7 +84,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "ms",
+        "unit": "%",
         "scale": 1,
     },
     "end-of-charge-voltage": {
@@ -96,7 +95,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "Hz",
+        "unit": "V",
         "scale": 1,
     },
     "current-battery-capacity": {
@@ -107,7 +106,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "ms",
+        "unit": "%",
         "scale": 1,
     },
     "maximum-discharging-current": {
@@ -118,7 +117,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "Hz",
+        "unit": "A",
         "scale": 1,
     },
     "end-of-discharge-voltage": {
@@ -129,7 +128,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "ms",
+        "unit": "V",
         "scale": 1,
     },
     "battery-temperature": {
@@ -140,7 +139,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "Hz",
+        "unit": "°C",
         "scale": 1,
     },
     "charge-energy": {
@@ -151,7 +150,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "ms",
+        "unit": "Wh",
         "scale": 1,
     },
     "discharge-energy": {
@@ -162,7 +161,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "Hz",
+        "unit": "Wh",
         "scale": 1,
     },
     "current-charging-power": {
@@ -173,7 +172,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "Hz",
+        "unit": "Wh",
         "scale": 1,
     },
     "current-discharging-power": {
@@ -184,7 +183,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "s",
+        "unit": "Wh",
         "scale": 1,
     },
     "language-of-the-user-interface": {
@@ -195,7 +194,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "internal-temperature_0": {
@@ -206,7 +205,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "s",
+        "unit": "°C",
         "scale": 1,
     },
     "internal-temperature_1": {
@@ -217,7 +216,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "s",
+        "unit": "°C",
         "scale": 1,
     },
     "start-delay-input_0": {
@@ -228,7 +227,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "Hz",
+        "unit": "s",
         "scale": 1,
     },
     "start-delay-input_1": {
@@ -239,7 +238,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "Ohm",
+        "unit": "s",
         "scale": 1,
     },
     "minimum-voltage-input_0": {
@@ -250,7 +249,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "V",
         "scale": 1,
     },
     "minimum-voltage-input_1": {
@@ -261,7 +260,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "ms",
+        "unit": "V",
         "scale": 1,
     },
     "dc-current-input_0": {
@@ -272,7 +271,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "p.u.",
+        "unit": "A",
         "scale": 1,
     },
     "dc-current-input_1": {
@@ -283,7 +282,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "ms",
+        "unit": "A",
         "scale": 1,
     },
     "dc-current-input_2": {
@@ -294,7 +293,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "p.u.",
+        "unit": "A",
         "scale": 1,
     },
     "dc-current-input_3": {
@@ -305,7 +304,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "ms",
+        "unit": "A",
         "scale": 1,
     },
     "dc-voltage-input_0": {
@@ -316,7 +315,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "p.u.",
+        "unit": "V",
         "scale": 1,
     },
     "dc-voltage-input_1": {
@@ -327,7 +326,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "ms",
+        "unit": "V",
         "scale": 1,
     },
     "dc-power-input_0": {
@@ -338,7 +337,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "p.u.",
+        "unit": "W",
         "scale": 1,
     },
     "dc-power-input_1": {
@@ -349,7 +348,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "ms",
+        "unit": "W",
         "scale": 1,
     },
     "standard_daylight-saving-time-conversion-on": {
@@ -360,7 +359,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "-",
         "scale": 1,
     },
     "system-time": {
@@ -371,7 +370,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "ms",
+        "unit": "-",
         "scale": 1,
     },
     "time-zone": {
@@ -382,7 +381,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "-",
         "scale": 1,
     },
     "insolation-on-external-sensor": {
@@ -393,7 +392,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "ms",
+        "unit": "W/m²",
         "scale": 1,
     },
     "wind-speed_0": {
@@ -404,7 +403,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "m/s",
         "scale": 1,
     },
     "wind-speed_1": {
@@ -415,7 +414,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "m/s",
         "scale": 1,
     },
     "wind-speed_2": {
@@ -426,7 +425,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "m/s",
         "scale": 1,
     },
     "ambient-temperature_0": {
@@ -437,7 +436,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "°C",
         "scale": 1,
     },
     "ambient-temperature_1": {
@@ -448,7 +447,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "°C",
         "scale": 1,
     },
     "ambient-temperature_2": {
@@ -459,7 +458,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "°C",
         "scale": 1,
     },
     "highest-measured-ambient-temperature": {
@@ -470,7 +469,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "°C",
         "scale": 1,
     },
     "country-standard-set": {
@@ -481,7 +480,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "islanding-detection_tripping-time-of-the-freq-monitor": {
@@ -492,7 +491,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "ms",
         "scale": 1,
     },
     "islanding-detection_status-of-frequency-monitor": {
@@ -503,7 +502,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%",
+        "unit": "-",
         "scale": 1,
     },
     "frequency-monitoring_lower-maximum-threshold": {
@@ -514,7 +513,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "Hz",
         "scale": 1,
     },
     "freq-monitor_lower-max-threshold-trip_time": {
@@ -525,7 +524,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "ms",
         "scale": 1,
     },
     "frequency-monitoring-upper-minimum-threshold": {
@@ -536,7 +535,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "Hz",
         "scale": 1,
     },
     "freq-monitor_upper-min-threshold-trip_time": {
@@ -547,7 +546,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "ms",
         "scale": 1,
     },
     "frequency-monitoring-upper-maximum-threshold": {
@@ -558,7 +557,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "Hz",
         "scale": 1,
     },
     "freq-monitor-upper-max-threshold-trip_time": {
@@ -569,7 +568,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "W",
+        "unit": "ms",
         "scale": 1,
     },
     "frequency-monitoring_lower-minimum-threshold": {
@@ -580,7 +579,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "W",
+        "unit": "Hz",
         "scale": 1,
     },
     "freq-monitor_lower-min-threshold-trip_time": {
@@ -591,7 +590,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "ms",
         "scale": 1,
     },
     "maximum-switching-frequency": {
@@ -602,7 +601,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "Hz",
         "scale": 1,
     },
     "minimum-switching-frequency": {
@@ -613,7 +612,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "Hz",
         "scale": 1,
     },
     "reconnection-time-after-grid-fault": {
@@ -624,7 +623,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "s",
         "scale": 1,
     },
     "reconnection-time-upon-short-interruption": {
@@ -635,7 +634,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "p.u.",
+        "unit": "s",
         "scale": 1,
     },
     "maximum-duration-of-a-short-interruption": {
@@ -646,7 +645,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "reconnection-time-upon-restart": {
@@ -657,7 +656,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "nominal-frequency": {
@@ -668,7 +667,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "Hz",
         "scale": 1,
     },
     "minimum-insulation-resistance": {
@@ -679,7 +678,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "Ohm",
         "scale": 1,
     },
     "voltage-monitor_intermediate-maximum-threshold": {
@@ -690,7 +689,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "p.u.",
         "scale": 1,
     },
     "voltage-monitor_intermediate-max-threshold-trip_time": {
@@ -701,7 +700,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "ms",
         "scale": 1,
     },
     "voltage-monitoring_lower-maximum-threshold": {
@@ -712,7 +711,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "p.u.",
         "scale": 1,
     },
     "voltage-monitor_lower-max-threshold-trip_time": {
@@ -723,7 +722,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "ms",
         "scale": 1,
     },
     "voltage-monitoring_upper-minimum-threshold": {
@@ -734,7 +733,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "p.u.",
         "scale": 1,
     },
     "voltage-monitor_upper-min-threshold-trip_time": {
@@ -745,7 +744,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "V",
+        "unit": "ms",
         "scale": 1,
     },
     "voltage-monitor_intermediate-minimum-threshold": {
@@ -756,7 +755,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VA",
+        "unit": "p.u.",
         "scale": 1,
     },
     "voltage-monitor_intermediate-min-threshold-trip_time": {
@@ -767,7 +766,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VA",
+        "unit": "ms",
         "scale": 1,
     },
     "voltage-monitoring_peak-voltage-threshold": {
@@ -778,7 +777,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VA",
+        "unit": "p.u.",
         "scale": 1,
     },
     "voltage-monitor_peak-voltage-threshold-tripping-time": {
@@ -789,7 +788,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VA",
+        "unit": "ms",
         "scale": 1,
     },
     "voltage-monitoring_upper-maximum-threshold": {
@@ -800,7 +799,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/min",
+        "unit": "p.u.",
         "scale": 1,
     },
     "voltage-monitor_upper-max-threshold-trip_time": {
@@ -811,7 +810,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "ms",
         "scale": 1,
     },
     "voltage-monitoring_lower-minimum-threshold": {
@@ -822,7 +821,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "p.u.",
         "scale": 1,
     },
     "voltage-monitor_lower-min-threshold-trip_time": {
@@ -833,7 +832,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "ms",
         "scale": 1,
     },
     "max.-voltage-for-reconnection": {
@@ -844,7 +843,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "p.u.",
         "scale": 1,
     },
     "min.-voltage-for-reconnection": {
@@ -855,7 +854,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "p.u.",
         "scale": 1,
     },
     "set-country-standard": {
@@ -866,7 +865,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "-",
         "scale": 1,
     },
     "grid-current-phase-l1": {
@@ -877,7 +876,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "VAr",
+        "unit": "A",
         "scale": 1,
     },
     "grid-current-phase-l2": {
@@ -888,7 +887,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "VAr",
+        "unit": "A",
         "scale": 1,
     },
     "grid-current-phase-l3": {
@@ -899,7 +898,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "VAr",
+        "unit": "A",
         "scale": 1,
     },
     "grid-frequency": {
@@ -910,7 +909,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "Hz",
         "scale": 1,
     },
     "grid-voltage-phase-l1": {
@@ -921,7 +920,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "V",
         "scale": 1,
     },
     "grid-voltage-phase-l1-against-l2": {
@@ -932,7 +931,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "V",
         "scale": 1,
     },
     "grid-voltage-phase-l2": {
@@ -943,7 +942,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "V",
         "scale": 1,
     },
     "grid-voltage-phase-l2-against-l3": {
@@ -954,7 +953,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%",
+        "unit": "V",
         "scale": 1,
     },
     "grid-voltage-phase-l3": {
@@ -965,7 +964,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%",
+        "unit": "V",
         "scale": 1,
     },
     "grid-voltage-phase-l3-against-l1": {
@@ -976,7 +975,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%",
+        "unit": "V",
         "scale": 1,
     },
     "grid-current": {
@@ -987,7 +986,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%",
+        "unit": "A",
         "scale": 1,
     },
     "eei-displacement-power-factor": {
@@ -1009,7 +1008,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "displacement-power-factor": {
@@ -1020,7 +1019,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "apparent-power": {
@@ -1031,7 +1030,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VA",
         "scale": 1,
     },
     "reactive-power": {
@@ -1042,7 +1041,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "s",
+        "unit": "VAr",
         "scale": 1,
     },
     "power": {
@@ -1053,7 +1052,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "W",
         "scale": 1,
     },
     "apparent-power-l1": {
@@ -1064,7 +1063,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "s",
+        "unit": "VA",
         "scale": 1,
     },
     "apparent-power-l2": {
@@ -1075,7 +1074,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VA",
         "scale": 1,
     },
     "apparent-power-l3": {
@@ -1086,7 +1085,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VA",
         "scale": 1,
     },
     "reactive-power-l1": {
@@ -1097,7 +1096,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "reactive-power-l2": {
@@ -1108,7 +1107,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "reactive-power-l3": {
@@ -1119,7 +1118,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "s",
+        "unit": "VAr",
         "scale": 1,
     },
     "power-l1": {
@@ -1130,7 +1129,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "W",
         "scale": 1,
     },
     "power-l2": {
@@ -1141,7 +1140,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "%/s",
+        "unit": "W",
         "scale": 1,
     },
     "power-l3": {
@@ -1152,7 +1151,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "%/s",
+        "unit": "W",
         "scale": 1,
     },
     "afci-switched-on": {
@@ -1174,7 +1173,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "external-cos_phi-setting_fallback-behavior_0": {
@@ -1196,7 +1195,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "external-cos_phi-setpoint-specification_fallback-value-of-cos_phi-for-active-power-output": {
@@ -1229,7 +1228,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "external-cos_phi-setting_timeout_0": {
@@ -1240,7 +1239,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "external-cos_phi-setting_timeout_1": {
@@ -1251,7 +1250,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "s",
         "scale": 1,
     },
     "external-reactive-power-setting_fallback-behavior": {
@@ -1262,7 +1261,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "external-reactive-power-setting_fallback-value_nominal": {
@@ -1273,7 +1272,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "%",
         "scale": 1,
     },
     "external-reactive-power-setting_timeout": {
@@ -1306,7 +1305,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-timeout-for-absent-reference-voltage-setting": {
@@ -1317,7 +1316,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "external-active-power-setting_fallback-behavior": {
@@ -1339,7 +1338,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "W",
         "scale": 1,
     },
     "external-active-power-setting_fallback-value-of-minimum-active-power": {
@@ -1350,7 +1349,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "%/s",
+        "unit": "W",
         "scale": 1,
     },
     "external-active-power-setting_timeout": {
@@ -1361,7 +1360,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "s",
         "scale": 1,
     },
     "intermediate-circuit-voltage": {
@@ -1372,7 +1371,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "V",
         "scale": 1,
     },
     "dynamic-grid-support_operating-mode": {
@@ -1383,7 +1382,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "dynamic-grid-support_hysteresis-voltage": {
@@ -1394,7 +1393,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "p.u.",
         "scale": 1,
     },
     "dynamic-grid-support_overvoltage-threshold-for-zero-current": {
@@ -1405,7 +1404,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%",
+        "unit": "p.u.",
         "scale": 1,
     },
     "dynamic-grid-support_undervoltage-threshold-for-zero-current": {
@@ -1416,7 +1415,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "VAr",
+        "unit": "p.u.",
         "scale": 1,
     },
     "fast-shut-down_WO": {
@@ -1427,7 +1426,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%",
+        "unit": "-",
         "scale": 1,
     },
     "fast-shut-down_RW": {
@@ -1460,7 +1459,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "rated-cos_phi-pfminq1rtg": {
@@ -1482,7 +1481,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "rated-cos_phi-pfminq2rtg": {
@@ -1493,7 +1492,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "nominal-cos_phi-pfminq3": {
@@ -1548,7 +1547,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "grid-nominal-voltage": {
@@ -1559,7 +1558,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "V",
         "scale": 1,
     },
     "nominal-apparent-power-vamaxin": {
@@ -1570,7 +1569,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "VA",
         "scale": 1,
     },
     "rated-apparent-power-vamaxinrtg": {
@@ -1581,7 +1580,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "VA",
         "scale": 1,
     },
     "nominal-apparent-power-vamaxout": {
@@ -1592,7 +1591,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "VA",
         "scale": 1,
     },
     "rated-apparent-power-vamaxoutrtg": {
@@ -1603,7 +1602,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "VA",
         "scale": 1,
     },
     "soft-start-up-rate-q": {
@@ -1614,7 +1613,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "%/min",
         "scale": 1,
     },
     "soft-start-up-q_ENABLE": {
@@ -1636,7 +1635,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "rated-reactive-power-varmaxq1rtg": {
@@ -1647,7 +1646,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "nominal-reactive-power-varmaxq2": {
@@ -1658,7 +1657,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "rated-reactive-power-varmaxq2rtg": {
@@ -1669,7 +1668,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "nominal-reactive-power-varmaxq3": {
@@ -1680,7 +1679,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "rated-reactive-power-varmaxq3rtg": {
@@ -1691,7 +1690,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "nominal-reactive-power-varmaxq4": {
@@ -1702,7 +1701,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "rated-reactive-power-varmaxq4rtg": {
@@ -1713,7 +1712,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "VAr",
         "scale": 1,
     },
     "nominal-reactive-power-varmaxzerwq1": {
@@ -1724,7 +1723,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "Hz",
+        "unit": "VAr",
         "scale": 1,
     },
     "nominal-reactive-power-varmaxzerwq2": {
@@ -1735,7 +1734,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "%/min",
+        "unit": "VAr",
         "scale": 1,
     },
     "nominal-reactive-power-varmaxzerwq3": {
@@ -1746,7 +1745,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "s",
+        "unit": "VAr",
         "scale": 1,
     },
     "nominal-reactive-power-varmaxzerwq4": {
@@ -1757,7 +1756,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "Hz",
+        "unit": "VAr",
         "scale": 1,
     },
     "activation-threshold-for-active-power-draw_nominal": {
@@ -1768,7 +1767,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "ms",
+        "unit": "%",
         "scale": 1,
     },
     "deactivation-threshold-for-active-power-draw_nominal": {
@@ -1779,7 +1778,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "s",
+        "unit": "%",
         "scale": 1,
     },
     "activation-threshold-for-active-power-output_nominal": {
@@ -1790,7 +1789,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "%/min",
+        "unit": "%",
         "scale": 1,
     },
     "deactivation-threshold-for-active-power-output_nominal": {
@@ -1801,7 +1800,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "%",
         "scale": 1,
     },
     "cos_phi-setting_limitation-of-change-rate_ENABLE": {
@@ -1812,7 +1811,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/min",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi-setting_decrease-rate": {
@@ -1823,7 +1822,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/min",
+        "unit": "%/s",
         "scale": 1,
     },
     "cos_phi-setting_increase-rate": {
@@ -1834,7 +1833,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "%/s",
         "scale": 1,
     },
     "cos_phi-setting_nominal-value-filter_ENABLE": {
@@ -1845,7 +1844,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "W",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi-setting_setting-time_nominal-value-filter": {
@@ -1856,7 +1855,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "W",
+        "unit": "s",
         "scale": 1,
     },
     "cos_phi-setting_actual-value-filter-for-active-power-value_ENABLE": {
@@ -1867,7 +1866,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "W",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi-setting_actual-value-filter-for-active-power-value": {
@@ -1878,7 +1877,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "W",
+        "unit": "s",
         "scale": 1,
     },
     "manual-cos_phi-setting_excitation-type-at-active-power-draw": {
@@ -1889,7 +1888,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "W",
+        "unit": "-",
         "scale": 1,
     },
     "manual-cos_phi-setting_cos_phi-nominal-value-at-active-power-draw": {
@@ -1900,7 +1899,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%",
+        "unit": "-",
         "scale": 1,
     },
     "external-cos_phi-setpoint-specification_cos_phi-setpoint-for-active-power-output": {
@@ -1922,7 +1921,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "external-cos_phi-setting_excitation-type-at-active-power-draw": {
@@ -1933,7 +1932,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "external-cos_phi-setting_cos_phi-nominal-value-at-active-power-draw": {
@@ -1955,7 +1954,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi_v_max.-number-of-support-points": {
@@ -1977,7 +1976,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi_u_cos_phi-nominal-value_1": {
@@ -1988,7 +1987,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi_u_cos_phi-nominal-value_2": {
@@ -2010,7 +2009,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi_u_excitation-type_0": {
@@ -2065,7 +2064,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "p.u.",
         "scale": 1,
     },
     "cos_phi_u_voltage-value_1": {
@@ -2076,7 +2075,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "p.u.",
         "scale": 1,
     },
     "cos_phi_u_voltage-value_2": {
@@ -2087,7 +2086,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "%/s",
+        "unit": "p.u.",
         "scale": 1,
     },
     "cos_phi_u_voltage-value_3": {
@@ -2098,7 +2097,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "p.u.",
         "scale": 1,
     },
     "cos_phi_v_tripping-delay": {
@@ -2109,7 +2108,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "cos_phi_p_limitation-of-change-rate-v_ENABLE": {
@@ -2120,7 +2119,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "s",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi_v_decrease-rate": {
@@ -2131,7 +2130,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "%/s",
         "scale": 1,
     },
     "cos_phi_v_increase-rate": {
@@ -2142,7 +2141,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "kWh",
+        "unit": "%/s",
         "scale": 1,
     },
     "cos_phi_v_nominal-value-filter_ENABLE": {
@@ -2153,7 +2152,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "h",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi_p_setting-time_nominal-value-filter-v": {
@@ -2164,7 +2163,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "A",
+        "unit": "s",
         "scale": 1,
     },
     "cos_phi_v_actual-value-filter-for-active-power-measured-value_ENABLE": {
@@ -2186,7 +2185,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "cos_phi_p_number-of-support-points-to-be-used": {
@@ -2307,7 +2306,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "W",
+        "unit": "%",
         "scale": 1,
     },
     "cos_phi_p_active-power_1": {
@@ -2329,7 +2328,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "W",
+        "unit": "%",
         "scale": 1,
     },
     "cos_phi_p_active-power_3": {
@@ -2340,7 +2339,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "-",
+        "unit": "%",
         "scale": 1,
     },
     "cos_phi_p_tripping-delay": {
@@ -2351,7 +2350,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "cos_phi_p_limitation-of-change-rate-w_ENABLE": {
@@ -2373,7 +2372,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "%/s",
         "scale": 1,
     },
     "cos_phi_p_increase-rate": {
@@ -2384,7 +2383,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "%/s",
         "scale": 1,
     },
     "cos_phi_p_nominal-value-filter_ENABLE": {
@@ -2406,7 +2405,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "-",
+        "unit": "s",
         "scale": 1,
     },
     "cos_phi_p_actual-value-filter-for-active-power-measured-value_ENABLE": {
@@ -2417,7 +2416,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "cos_phi_p_setting-time_actual-value-filter": {
@@ -2428,7 +2427,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "pfminq1-q4-limit-for-all-reactive-power-modes_ENABLE": {
@@ -2439,7 +2438,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reactive-power-setting-with-voltage-limitation_ENABLE": {
@@ -2450,7 +2449,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reactive-power-setting-with-voltage-limitation_voltage-value": {
@@ -2461,7 +2460,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "reactive-power-setting-with-voltage-limitation_reactive-power-value": {
@@ -2472,7 +2471,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "reactive-power-setting_limitation-of-change-rate_ENABLE": {
@@ -2483,7 +2482,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reactive-power-setting_decrease-rate": {
@@ -2494,7 +2493,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "reactive-power-setting_increase-rate": {
@@ -2505,7 +2504,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "reactive-power-setting_nominal-value-filter_ENABLE": {
@@ -2516,7 +2515,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reactive-power-setting_setting-time_nominal-value-filter": {
@@ -2527,7 +2526,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "manual-reactive-power-setting-for-active-power-output_RO": {
@@ -2538,7 +2537,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VAr",
         "scale": 1,
     },
     "manual-reactive-power-setting-for-active-power-output_RW": {
@@ -2549,7 +2548,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VAr",
         "scale": 1,
     },
     "manual-reactive-power-setting-for-active-power-output_nominal_RO": {
@@ -2560,7 +2559,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "manual-reactive-power-setting-for-active-power-output_nominal_RW": {
@@ -2571,7 +2570,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "manual-reactive-power-setpoint-for-zero-power-output": {
@@ -2582,7 +2581,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VAr",
         "scale": 1,
     },
     "manual-reactive-power-setpoint-for-zero-power-output_nominal": {
@@ -2593,7 +2592,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "standardized-reactive-power-setpoint-by-system-control": {
@@ -2604,7 +2603,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int16",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "extern.-reactive-power-mode_WO": {
@@ -2615,7 +2614,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int16",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "extern.-reactive-power-mode_RW": {
@@ -2626,7 +2625,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int16",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-number-of-support-points-to-be-used": {
@@ -2637,7 +2636,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_V-max.-number-of-support-points": {
@@ -2648,7 +2647,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_V-voltage-value_0": {
@@ -2659,7 +2658,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-voltage-value_1": {
@@ -2670,7 +2669,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-voltage-value_2": {
@@ -2681,7 +2680,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-voltage-value_3": {
@@ -2692,7 +2691,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-voltage-value_4": {
@@ -2703,7 +2702,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-voltage-value_5": {
@@ -2714,7 +2713,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-voltage-value_6": {
@@ -2725,7 +2724,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-voltage-value_7": {
@@ -2736,7 +2735,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-voltage-value_8": {
@@ -2747,7 +2746,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-reactive-power-value_0": {
@@ -2758,7 +2757,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-reactive-power-value_1": {
@@ -2769,7 +2768,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-reactive-power-value_2": {
@@ -2780,7 +2779,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-reactive-power-value_3": {
@@ -2791,7 +2790,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-reactive-power-value_4": {
@@ -2802,7 +2801,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-reactive-power-value_5": {
@@ -2813,7 +2812,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-reactive-power-value_6": {
@@ -2824,7 +2823,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-reactive-power-value_7": {
@@ -2835,7 +2834,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-reactive-power-value_8": {
@@ -2846,7 +2845,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_V-tripping-delay": {
@@ -2857,7 +2856,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "Q_v-limitation-of-change-rate_ENABLE": {
@@ -2868,7 +2867,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_V-decrease-rate": {
@@ -2879,7 +2878,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "Q_V-increase-rate": {
@@ -2890,7 +2889,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "Q_v-nominal-value-filter_ENABLE": {
@@ -2901,7 +2900,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_V-setting-time_nominal-value-filter": {
@@ -2912,7 +2911,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "Q_V-operating-mode-for-reference-voltage-adaption": {
@@ -2923,7 +2922,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_V-setting-time-of-automatic-reference-voltage-adaption": {
@@ -2934,7 +2933,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_V-external-reference-voltage-setting_0": {
@@ -2945,7 +2944,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_V-external-reference-voltage-setting_1": {
@@ -2956,7 +2955,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "Q_P-number-of-support-points-to-be-used": {
@@ -2967,7 +2966,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_P-max.-number-of-support-points": {
@@ -2978,7 +2977,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_P-active-power-value_0": {
@@ -2989,7 +2988,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-active-power-value_1": {
@@ -3000,7 +2999,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-active-power-value_2": {
@@ -3011,7 +3010,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-active-power-value_3": {
@@ -3022,7 +3021,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-active-power-value_4": {
@@ -3033,7 +3032,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-active-power-value_5": {
@@ -3044,7 +3043,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-active-power-value_6": {
@@ -3055,7 +3054,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-active-power-value_7": {
@@ -3066,7 +3065,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-reactive-power-value_0": {
@@ -3077,7 +3076,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-reactive-power-value_1": {
@@ -3088,7 +3087,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-reactive-power-value_2": {
@@ -3099,7 +3098,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-reactive-power-value_3": {
@@ -3110,7 +3109,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-reactive-power-value_4": {
@@ -3121,7 +3120,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-reactive-power-value_5": {
@@ -3132,7 +3131,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-reactive-power-value_6": {
@@ -3143,7 +3142,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-reactive-power-value_7": {
@@ -3154,7 +3153,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "Q_P-tripping-delay": {
@@ -3165,7 +3164,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "Q_P-limitation-of-change-rate_ENABLE": {
@@ -3176,7 +3175,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_P-decrease-rate": {
@@ -3187,7 +3186,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "Q_P-increase-rate": {
@@ -3198,7 +3197,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "Q_P-nominal-value-filter_ENABLE": {
@@ -3209,7 +3208,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "Q_P-setting-time_nominal-value-filter": {
@@ -3220,7 +3219,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "reactive-power-mode-in-case-of-active-power-draw": {
@@ -3231,7 +3230,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reactive-power-mode-at-active-power-output": {
@@ -3242,7 +3241,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reactive-power-for-zero-active-power": {
@@ -3253,7 +3252,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reactive-power-mode_reference-size-for-reactive-power-setting_nominal": {
@@ -3264,7 +3263,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_f-characteristic-curve_ENABLE": {
@@ -3275,7 +3274,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_f-ref-value-for-active-power-at-overfrequency": {
@@ -3286,7 +3285,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_f-ref-value-for-active-power-for-underfrequency": {
@@ -3297,7 +3296,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_f-hysteresis-in-case-of-overfrequency": {
@@ -3308,7 +3307,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_f-hysteresis-in-case-of-underfrequency": {
@@ -3319,7 +3318,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_f-buckling-overfrequency_0": {
@@ -3330,7 +3329,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "P_f-buckling-overfrequency_1": {
@@ -3341,7 +3340,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "P_f-buckling-overfrequency_2": {
@@ -3352,7 +3351,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "P_f-active-power-change-per-hz-at-overfrequency_0": {
@@ -3363,7 +3362,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_f-active-power-change-per-hz-at-overfrequency_1": {
@@ -3374,7 +3373,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_f-active-power-change-per-hz-at-overfrequency_2": {
@@ -3385,7 +3384,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_f-reset-overfrequency": {
@@ -3396,7 +3395,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "P_f-active-power-change-rate-after-fault-end": {
@@ -3407,7 +3406,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/min",
         "scale": 1,
     },
     "P_f-lag-time": {
@@ -3418,7 +3417,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "P_f-buckling-underfrequency_0": {
@@ -3429,7 +3428,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "P_f-buckling-underfrequency_1": {
@@ -3440,7 +3439,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "P_f-buckling-underfrequency_2": {
@@ -3451,7 +3450,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "P_f-active-power-change-per-hz-at-underfrequency_0": {
@@ -3462,7 +3461,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_f-active-power-change-per-hz-at-underfrequency_1": {
@@ -3473,7 +3472,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_f-active-power-change-per-hz-at-underfrequency_2": {
@@ -3484,7 +3483,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_f-reset-underfrequency": {
@@ -3495,7 +3494,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "P_f-tripping-delay": {
@@ -3506,7 +3505,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "ms",
         "scale": 1,
     },
     "P_f-setting-time": {
@@ -3517,7 +3516,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "soft-start-up-rate-p": {
@@ -3528,7 +3527,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/min",
         "scale": 1,
     },
     "soft-start-up-p_ENABLE": {
@@ -3539,7 +3538,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "increase-rate-in-case-of-insolation-change_0": {
@@ -3550,7 +3549,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/min",
         "scale": 1,
     },
     "increase-rate-in-case-of-insolation-change_1": {
@@ -3561,7 +3560,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/min",
         "scale": 1,
     },
     "reconnect-gradient-after-grid-fault": {
@@ -3572,7 +3571,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/min",
         "scale": 1,
     },
     "soft-start-up-p-after-grid-fault_ENABLE": {
@@ -3583,7 +3582,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "rated-active-power-wmaxoutrtg": {
@@ -3594,7 +3593,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "set-active-power-limit_RO": {
@@ -3605,7 +3604,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "set-active-power-limit_RW": {
@@ -3616,7 +3615,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "nominal-active-power-wmaxin": {
@@ -3627,7 +3626,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "rated-active-power-wmaxinrtg": {
@@ -3638,7 +3637,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "active-power-limitation-p_active-power-config_RO": {
@@ -3649,7 +3648,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "active-power-limitation-p_active-power-config_RW": {
@@ -3660,7 +3659,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "active-power-limitation-p_active-power-config_nominal_RO": {
@@ -3671,7 +3670,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "active-power-limitation-p_active-power-config_nominal_RW": {
@@ -3682,7 +3681,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "external-active-power-setting_limitation-of-change-rate_ENABLE": {
@@ -3693,7 +3692,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "external-active-power-setting_decrease-rate": {
@@ -3704,7 +3703,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "external-active-power-setting_increase-rate": {
@@ -3715,7 +3714,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "external-active-power-setting_nominal-value-filter_ENABLE": {
@@ -3726,7 +3725,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "external-active-power-setting_setting-time_nominal-value-filter": {
@@ -3737,7 +3736,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "external-active-power-setpoint-specification_fallback-value-for-active-power-setpoint-specification": {
@@ -3748,7 +3747,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "eff._reac.-pow.-contr.-via-comm._0": {
@@ -3759,7 +3758,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "eff._reac.-pow.-contr.-via-comm._1": {
@@ -3770,7 +3769,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "limitation-of-the-active-power-consumption-in-w": {
@@ -3781,7 +3780,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "limitation-of-the-active-power-consumption-in-%": {
@@ -3792,7 +3791,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "normalized-active-power-limitation-by-pv-system-control_WO": {
@@ -3803,7 +3802,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int16",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "normalized-active-power-limitation-by-pv-system-control_0": {
@@ -3814,7 +3813,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int16",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "normalized-active-power-limitation-by-pv-system-control_RW": {
@@ -3825,7 +3824,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int16",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "active-power-setpoint_0": {
@@ -3836,7 +3835,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "active-power-setpoint_1": {
@@ -3847,7 +3846,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "maximum-active-power": {
@@ -3858,7 +3857,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "minimum-active-power": {
@@ -3869,7 +3868,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "external-active-power-setting-2_limitation-of-change-rate_ENABLE_0": {
@@ -3880,7 +3879,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "external-active-power-setting-2_limitation-of-change-rate_ENABLE_1": {
@@ -3891,7 +3890,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "external-active-power-setting-2_decrease-rate_0": {
@@ -3902,7 +3901,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "external-active-power-setting-2_decrease-rate_1": {
@@ -3913,7 +3912,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "external-active-power-setting-2_increase-rate_0": {
@@ -3924,7 +3923,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "external-active-power-setting-2_increase-rate_1": {
@@ -3935,7 +3934,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "external-active-power-setting-2_nominal-value-filter_ENABLE_0": {
@@ -3946,7 +3945,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "external-active-power-setting-2_nominal-value-filter_ENABLE_1": {
@@ -3957,7 +3956,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_V-tripping-delay": {
@@ -3968,7 +3967,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "P_V-number-of-points-used": {
@@ -3979,7 +3978,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_V-max.-number-of-support-points": {
@@ -3990,7 +3989,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_U-voltage-value_0": {
@@ -4001,7 +4000,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "P_U-voltage-value_1": {
@@ -4012,7 +4011,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "P_U-voltage-value_2": {
@@ -4023,7 +4022,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "P_U-voltage-value_3": {
@@ -4034,7 +4033,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "P_U-voltage-value_4": {
@@ -4045,7 +4044,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "P_U-voltage-value_5": {
@@ -4056,7 +4055,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "P_U-voltage-value_6": {
@@ -4067,7 +4066,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "P_U-voltage-value_7": {
@@ -4078,7 +4077,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "p.u.",
         "scale": 1,
     },
     "P_U-active-power-value_0": {
@@ -4089,7 +4088,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_U-active-power-value_1": {
@@ -4100,7 +4099,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_U-active-power-value_2": {
@@ -4111,7 +4110,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_U-active-power-value_3": {
@@ -4122,7 +4121,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_U-active-power-value_4": {
@@ -4133,7 +4132,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_U-active-power-value_5": {
@@ -4144,7 +4143,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_U-active-power-value_6": {
@@ -4155,7 +4154,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_U-active-power-value_7": {
@@ -4166,7 +4165,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "P_V-activation_ENABLE": {
@@ -4177,7 +4176,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_V-type-of-reference-voltage": {
@@ -4188,7 +4187,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_V-limitation-of-change-rate_ENABLE": {
@@ -4199,7 +4198,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_V-decrease-rate": {
@@ -4210,7 +4209,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "P_V-increase-rate": {
@@ -4221,7 +4220,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%/s",
         "scale": 1,
     },
     "P_V-type-of-reference-active-power": {
@@ -4232,7 +4231,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_V-nominal-value-filter_ENABLE": {
@@ -4243,7 +4242,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "P_V-setting-time_nominal-value-filter": {
@@ -4254,7 +4253,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "operating-mode-active-power-setting_RO": {
@@ -4265,7 +4264,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "operating-mode-active-power-setting_RW": {
@@ -4276,7 +4275,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "residual-current": {
@@ -4287,7 +4286,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "A",
         "scale": 1,
     },
     "insulation-resistance": {
@@ -4298,7 +4297,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Ohm",
         "scale": 1,
     },
     "module-temperature_0": {
@@ -4309,7 +4308,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "°C",
         "scale": 1,
     },
     "module-temperature_1": {
@@ -4320,7 +4319,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "°C",
         "scale": 1,
     },
     "module-temperature_2": {
@@ -4331,7 +4330,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "°C",
         "scale": 1,
     },
     "daily-yield_0": {
@@ -4342,7 +4341,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "daily-yield_1": {
@@ -4353,7 +4352,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "daily-yield_2": {
@@ -4364,7 +4363,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "daily-yield_3": {
@@ -4375,7 +4374,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "metering-grid-current-phase-l1": {
@@ -4386,7 +4385,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "A",
         "scale": 1,
     },
     "metering-grid-current-phase-l2": {
@@ -4397,7 +4396,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "A",
         "scale": 1,
     },
     "metering-grid-current-phase-l3": {
@@ -4408,7 +4407,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "A",
         "scale": 1,
     },
     "metering-grid-frequency": {
@@ -4419,7 +4418,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Hz",
         "scale": 1,
     },
     "metering-grid-voltage-phase-l1": {
@@ -4430,7 +4429,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "V",
         "scale": 1,
     },
     "metering-grid-voltage-phase-l1-against-l2": {
@@ -4441,7 +4440,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "V",
         "scale": 1,
     },
     "metering-grid-voltage-phase-l2": {
@@ -4452,7 +4451,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "V",
         "scale": 1,
     },
     "metering-grid-voltage-phase-l2-against-l3": {
@@ -4463,7 +4462,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "V",
         "scale": 1,
     },
     "metering-grid-voltage-phase-l3": {
@@ -4474,7 +4473,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "V",
         "scale": 1,
     },
     "metering-grid-voltage-phase-l3-against-l1": {
@@ -4485,7 +4484,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "V",
         "scale": 1,
     },
     "metering-displacement-power-factor": {
@@ -4496,7 +4495,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "metering-eei-displacement-power-factor": {
@@ -4507,7 +4506,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "metering-apparent-power": {
@@ -4518,7 +4517,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VA",
         "scale": 1,
     },
     "metering-reactive-power-grid-feeding": {
@@ -4529,7 +4528,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VAr",
         "scale": 1,
     },
     "metering-counter-reading-of-power-drawn-counter": {
@@ -4540,7 +4539,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "metering-grid-feed-in-counter-reading": {
@@ -4551,7 +4550,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "metering-power-drawn": {
@@ -4562,7 +4561,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "power-grid-feed-in_0": {
@@ -4573,7 +4572,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "power-grid-feed-in_1": {
@@ -4584,7 +4583,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "metering-apparent-power-l1": {
@@ -4595,7 +4594,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VA",
         "scale": 1,
     },
     "metering-apparent-power-l2": {
@@ -4606,7 +4605,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VA",
         "scale": 1,
     },
     "metering-apparent-power-l3": {
@@ -4617,7 +4616,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VA",
         "scale": 1,
     },
     "metering-reactive-power-grid-feeding-phase-l1": {
@@ -4628,7 +4627,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VAr",
         "scale": 1,
     },
     "metering-reactive-power-grid-feeding-phase-l2": {
@@ -4639,7 +4638,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VAr",
         "scale": 1,
     },
     "metering-reactive-power-grid-feeding-phase-l3": {
@@ -4650,7 +4649,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "int32",
-        "unit": "",
+        "unit": "VAr",
         "scale": 1,
     },
     "metering-power-grid-feeding-l1": {
@@ -4661,7 +4660,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "metering-power-grid-feeding-l2": {
@@ -4672,7 +4671,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "metering-power-grid-feeding-l3": {
@@ -4683,7 +4682,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "metering-power-drawn-from-grid-phase-l1": {
@@ -4694,7 +4693,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "metering-power-drawn-from-grid-phase-l2": {
@@ -4705,7 +4704,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "metering-power-drawn-from-grid-phase-l3": {
@@ -4716,7 +4715,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "feed-in-time_0": {
@@ -4727,7 +4726,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "feed-in-time_1": {
@@ -4738,7 +4737,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "metering-set-total-yield": {
@@ -4749,7 +4748,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "kWh",
         "scale": 1,
     },
     "metering-set-total-operating-time-at-grid-connection-point": {
@@ -4760,7 +4759,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "h",
         "scale": 1,
     },
     "operating-time_0": {
@@ -4771,7 +4770,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "operating-time_1": {
@@ -4782,7 +4781,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "total-yield_0": {
@@ -4793,7 +4792,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "total-yield_1": {
@@ -4804,7 +4803,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "total-yield_2": {
@@ -4815,7 +4814,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "total-yield_3": {
@@ -4826,7 +4825,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "Wh",
         "scale": 1,
     },
     "operating-mode-of-multifunction-relay_0": {
@@ -4837,7 +4836,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "operating-mode-of-multifunction-relay_1": {
@@ -4848,7 +4847,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "multifunction-relay-status": {
@@ -4859,7 +4858,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "nominal-current-of-all-phases": {
@@ -4870,7 +4869,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "A",
         "scale": 1,
     },
     "bms-firmware-version": {
@@ -4881,7 +4880,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "firmware-version-of-the-main-processor": {
@@ -4892,7 +4891,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "communication-version": {
@@ -4903,18 +4902,18 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "device-name": {
         "address": 40631,
         "descr": "Device name",
         "class": "Device control",
-        "len": 24,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "mac-address": {
@@ -4925,7 +4924,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "device-class": {
@@ -4936,7 +4935,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "device-type": {
@@ -4947,7 +4946,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "firmware-version": {
@@ -4958,7 +4957,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "serial-number_0": {
@@ -4969,7 +4968,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "serial-number_1": {
@@ -4980,7 +4979,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "serial-number_2": {
@@ -4991,7 +4990,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "susyid-modul": {
@@ -5002,7 +5001,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "manufacturer": {
@@ -5013,7 +5012,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "battery-status": {
@@ -5024,7 +5023,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "backup-mode-status": {
@@ -5035,7 +5034,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "bms-operating-status": {
@@ -5046,7 +5045,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "dc-voltage-control-type": {
@@ -5057,7 +5056,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reason-for-derating": {
@@ -5068,7 +5067,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "fault-correction-measure": {
@@ -5079,7 +5078,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "current-event-number-for-manufacturer": {
@@ -5090,7 +5089,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "message": {
@@ -5101,7 +5100,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "recommended-action": {
@@ -5112,7 +5111,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "number-of-events-for-installer_0": {
@@ -5123,7 +5122,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "number-of-events-for-installer_1": {
@@ -5134,7 +5133,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "number-of-events-for-service_0": {
@@ -5145,7 +5144,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "number-of-events-for-service_1": {
@@ -5156,7 +5155,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "number-of-events-for-user_0": {
@@ -5167,7 +5166,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "number-of-events-for-user_1": {
@@ -5178,7 +5177,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint64",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "number-of-grid-connections": {
@@ -5189,7 +5188,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "grid-relay_contactor": {
@@ -5200,7 +5199,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "condition": {
@@ -5211,7 +5210,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "nominal-power-in-fault-mode": {
@@ -5222,7 +5221,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "nominal-power-in-ok-mode_0": {
@@ -5233,7 +5232,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "nominal-power-in-ok-mode_1": {
@@ -5244,7 +5243,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "nominal-power-in-warning-mode": {
@@ -5255,7 +5254,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "general-operating-mode": {
@@ -5266,7 +5265,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "general-operating-status": {
@@ -5277,7 +5276,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "plant-mains-connection": {
@@ -5288,7 +5287,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "waiting-time-until-feed-in": {
@@ -5299,7 +5298,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "s",
         "scale": 1,
     },
     "block-status": {
@@ -5310,7 +5309,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "operating-status": {
@@ -5321,7 +5320,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "standby-status": {
@@ -5332,7 +5331,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "reset-operating-data": {
@@ -5343,7 +5342,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "active-reactive-power-range": {
@@ -5354,7 +5353,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "set-active-power-limit-at-grid-connection-point": {
@@ -5365,7 +5364,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "set-active-power-limit-at-grid-connection-point_nominal": {
@@ -5376,7 +5375,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "%",
         "scale": 1,
     },
     "nominal-pv-system-power": {
@@ -5387,51 +5386,51 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "W",
         "scale": 1,
     },
     "speedwire-actual-DNS-server-IP": {
         "address": 31041,
         "descr": "-",
         "class": "Communication",
-        "len": 16,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-actual-gateway-IP": {
         "address": 31033,
         "descr": "-",
         "class": "Communication",
-        "len": 16,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-actual-IP": {
         "address": 31017,
         "descr": "-",
         "class": "Communication",
-        "len": 16,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-actual-netmask": {
         "address": 31025,
         "descr": "-",
         "class": "Communication",
-        "len": 16,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-automatic--config_ENABLED": {
@@ -5442,7 +5441,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "connection-speed-of-smacom-a": {
@@ -5453,7 +5452,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "duplex-mode-of-smacom-a": {
@@ -5464,7 +5463,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-connection-status-of-smacom-a": {
@@ -5475,7 +5474,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "connection-speed-of-smacom-b": {
@@ -5486,7 +5485,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "duplex-mode-of-smacom-b": {
@@ -5497,7 +5496,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-connection-status-of-smacom-b": {
@@ -5508,51 +5507,51 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-dns-server-address": {
         "address": 40513,
         "descr": "Speedwire DNS server address",
         "class": "Communication",
-        "len": 16,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-gateway-address": {
         "address": 40175,
         "descr": "Speedwire gateway address",
         "class": "Communication",
-        "len": 16,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-ip-address": {
         "address": 40159,
         "descr": "Speedwire IP address",
         "class": "Communication",
-        "len": 16,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "speedwire-subnet-mask": {
         "address": 40167,
         "descr": "Speedwire subnet mask",
         "class": "Communication",
-        "len": 16,
+        "len": 12,
         "rd": 4,
         "wr": 0,
         "datatype": "str",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "initiate-device-restart": {
@@ -5563,7 +5562,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
     "automatic-updates-activated": {
@@ -5574,7 +5573,7 @@ FUNCTIONS = {
         "rd": 4,
         "wr": 0,
         "datatype": "uint32",
-        "unit": "",
+        "unit": "-",
         "scale": 1,
     },
 }

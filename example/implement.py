@@ -6,7 +6,7 @@ from modbuswrapper.wrapper import ModbusInterface
 def read_parameter(iface: ModbusInterface, fName: str, params={}):
     rr = iface.call(fName, 'rd')
     cur = iface.decode_response(fName, rr)
-    print(f"{fName}\t{cur}\t{params['unit']}\t{params['datatype']}")
+    print(f"{params['address']}\t{fName}\t{cur}\t{params['unit']}\t{params['datatype']}")
     return cur
 
 
