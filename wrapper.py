@@ -26,6 +26,7 @@ from pymodbus.pdu import ExceptionResponse
 from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
 from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
 from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
+from modbuswrapper.sma_functions import FUNCTIONS as FNC_sma
 
 _logger = getLogger(__name__)
 
@@ -362,6 +363,8 @@ class ModbusWrapper:
                     fncs = FNC_thermia
                 elif appl == "alfen":
                     fncs = FNC_alfen
+                elif appl == "sma":
+                    fncs = FNC_sma
                 else:
                     fncs = {}
 

@@ -3,10 +3,10 @@ from time import sleep
 from modbuswrapper.wrapper import ModbusInterface
 
 
-def read_parameter(iface: ModbusInterface, fName: str):
+def read_parameter(iface: ModbusInterface, fName: str, params={}):
     rr = iface.call(fName, 'rd')
     cur = iface.decode_response(fName, rr)
-    print(f"Parameter {fName}: {cur}")
+    print(f"{params['address']}\t{fName}\t{cur}\t{params['unit']}\t{params['datatype']}")
     return cur
 
 
@@ -44,10 +44,10 @@ def test_interface(iface: ModbusInterface, lst):
         read_parameter(iface, fName)
 
 
-def read_all(iface: ModbusInterface, cnt=999):
-    for fName in iface.functions():
+def read_all(iface: ModbusInterface, cnt):
+    for fName, params in iface.functions().items():
         if cnt > 0:
-            read_parameter(iface, fName)
+            read_parameter(iface, fName, params)
         cnt = cnt - 1
 
 

@@ -1,0 +1,14 @@
+#! /bin/bash
+
+URL="http://gannet.local:8080/domus/modbus/command/sma/"
+# version-number-sma-modbus-profil.json
+
+OUTP=sma.log
+
+while read FUNC; do
+    echo "---"
+    echo ${FUNC}
+    curl "${URL}${FUNC}.json"
+    echo ""
+    sleep 1
+done
