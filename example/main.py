@@ -181,9 +181,9 @@ def set_cooling(iface, temp):
             'set-point-supply-line-temp-cooling-mix-valve-1',
     """
     fName = 'enable-passive-cooling'
-    print(f"'{fName} -> {iface.call(fName, 'wr', 1)}")
+    print(f"'{fName} -> {iface.write_parameter(fName, 1)}")
     fName = 'set-point-supply-line-temp-cooling-mix-valve-1'
-    print(f"'{fName} -> {iface.call(fName, 'wr', temp)}")
+    print(f"'{fName} -> {iface.write_parameter(fName, temp)}")
 
 
 def unset_cooling(iface):
@@ -193,10 +193,10 @@ def unset_cooling(iface):
             'set-point-supply-line-temp-cooling-mix-valve-1',
     """
     fName = 'enable-passive-cooling'
-    print(f"'{fName} -> {iface.call(fName, 'wr', 0)}")
+    print(f"'{fName} -> {iface.write_parameter(fName, 0)}")
     fName = 'set-point-supply-line-temp-cooling-mix-valve-1'
     temp = 17
-    print(f"'{fName} -> {iface.call(fName, 'wr', temp)}")
+    print(f"'{fName} -> {iface.write_parameter(fName, temp)}")
 
 
 def exec_alfen(selection):
@@ -207,7 +207,8 @@ def exec_alfen(selection):
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
             for fName in selector[appl][idx]:
-                implement.read_parameter(iface, fName)
+                curr = iface.read_parameter(fName)
+                print(f"{fName} current: {curr}")
         else:
             try:
                 val = float(x)
@@ -226,7 +227,8 @@ def exec_thermia(selection):
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
             for fName in selector[appl][idx]:
-                implement.read_parameter(iface, fName)
+                curr = iface.read_parameter(fName)
+                print(f"thermia - {fName} current: {curr}")
         elif x == 'a':
             read_all(iface, 999)
         elif x == 'c':
@@ -245,7 +247,8 @@ def exec_vigor(selection):
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
             for fName in selector[appl][idx]:
-                implement.read_parameter(iface, fName)
+                curr = iface.read_parameter(fName)
+                print(f"vigor - {fName} current: {curr}")
         elif x == 'r':
             implement.flow_preset(iface)
         elif x == 'p':

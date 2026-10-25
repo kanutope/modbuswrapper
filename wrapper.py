@@ -6,27 +6,24 @@
       The actual modbus read or write calls are made through its member method 'ModbusInterface.call'
     - function `modbus_client(node)` which returns either a `ModbusSerialClient` or `ModbusTCPClient` object.
 """
-import ast
 import os
 import stat
-from collections.abc import Callable
 from logging import getLogger
 from socket import AF_INET, SOCK_STREAM, socket
 from time import sleep
-from typing import Any
 
 from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 from pymodbus.client.base import ModbusBaseClient
 from pymodbus.exceptions import ModbusException
-from pymodbus.framer.rtu_framer import ModbusRtuFramer
-from pymodbus.framer.socket_framer import ModbusSocketFramer
 from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder
 from pymodbus.pdu import ExceptionResponse
 
 from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
+from modbuswrapper.constraintfactory import ConstraintFactory
+from modbuswrapper.pkg_proxy import RtuFramer, SocketFramer
+from modbuswrapper.sma_functions import FUNCTIONS as FNC_sma
 from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
 from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
-from modbuswrapper.sma_functions import FUNCTIONS as FNC_sma
 
 _logger = getLogger(__name__)
 
@@ -37,82 +34,14 @@ _logger = getLogger(__name__)
 # Defaults.Reconnects = 10
 # ReconnectDelay = 500
 
-
-class ConstraintFactory:
-    """provides ConstraintFactory which allows to implement custom built validation checks on given constraints.
-    Parses constraint strings once and compiles them into executable lambda functions.
-    (built by Gemini (Google AI)"""
-
-    def __init__(self) -> None:
-        # Map constraint names to factory functions returning a lambda
-        # PEP 585: Using built-in dict instead of typing.Dict
-        # PEP 585: Using collections.abc.Callable instead of typing.Callable
-        self._factories: dict[str, Callable[..., Callable[[Any], bool]]] = {
-            "between": self._make_between,
-            "in_list": self._make_in_list,
-        }
-
-    @staticmethod
-    def _make_between(min_val: float, max_val: float) -> Callable[[Any], bool]:
-        """Returns a lambda that evaluates min_val <= val <= max_val"""
-        return lambda val: min_val <= val <= max_val
-
-    @staticmethod
-    def _make_in_list(*allowed_values: Any) -> Callable[[Any], bool]:
-        """Returns a lambda that evaluates val in allowed_values"""
-        # Converting allowed_values to a set gives O(1) lookup speed
-        allowed_set = set(allowed_values)
-        return lambda val: val in allowed_set
-
-    def _parse_string(self, constraint_str: str) -> tuple[str, list[Any]]:
-        """Safely extracts the function name and argument literals using AST."""
-        try:
-            tree = ast.parse(constraint_str, mode="eval")
-            call_node = tree.body
-
-            if not isinstance(call_node, ast.Call) or not isinstance(
-                call_node.func, ast.Name
-            ):
-                raise TypeError(
-                    "Expected a single function call e.g. 'between(a, b)'"
-                )
-
-            func_name = call_node.func.id
-            args = [ast.literal_eval(arg) for arg in call_node.args]
-            return func_name, args
-
-        except Exception as err:
-            raise ValueError(
-                f"Malformed constraint string '{constraint_str}': {err}"
-            ) from err
-
-    def compile(self, constraint_str: str) -> Callable[[Any], bool]:
-        """Compiles a constraint string into an executable lambda validator."""
-        if not constraint_str or not constraint_str.strip():
-            return lambda val: True  # No constraint -> always valid
-
-        func_name, args = self._parse_string(constraint_str)
-
-        if func_name not in self._factories:
-            raise ValueError(f"Unsupported constraint rule: '{func_name}'")
-
-        factory = self._factories[func_name]
-        try:
-            return factory(*args)
-        except TypeError as err:
-            raise ValueError(
-                f"Argument count mismatch in constraint '{constraint_str}'"
-            ) from err
-
-
 class payloadBuilder(BinaryPayloadBuilder):
     """ extends the BinaryPayloadBuilder class with a dictionary allowing to call the various add_xxx methods by 'label'
     """
     def __init__(self, byteorder='>', wordorder='>'):
         """ creates the 'add' dictionary which renders the various add_methods callable by 'label'
             parameters:
-                byteorder - string -  default  '>' (big endian)
-                wordorder - string - default  '>' (big endian)
+                byteorder - string - default '>' (big endian)
+                wordorder - string - default '>' (big endian)
         """
         super().__init__(byteorder=byteorder, wordorder=wordorder)
         self.add = {
@@ -157,7 +86,7 @@ class payloadDecoder:
         }
 
 
-def device_exists(node):
+def device_exists(node) -> bool:
     """ check whether a (serial) device file exists
         to be used the check accessibility of a serial device, to which a serial modbus appliance is connected
     """
@@ -166,13 +95,13 @@ def device_exists(node):
 
         # 1. Must be a character device
         if not stat.S_ISCHR(st.st_mode):
-            txt = f"%%% {node} is not a character device"
+            txt = f"%%% {node}: is not a character device"
             _logger.error(txt)
             return False
 
         # 2. Test if the CURRENT process effectively has R/W access
         if not os.access(node, os.R_OK | os.W_OK):
-            txt = f"%%% Process lacks R/W permissions for {node}"
+            txt = f"%%% {node}: Process lacks R/W permissions for"
             _logger.error(txt)
             return False
 
@@ -181,7 +110,7 @@ def device_exists(node):
         if group_rw:
             process_gids = set([os.getegid()] + os.getgroups())
             if st.st_gid not in process_gids and os.geteuid() != 0:
-                txt = f"%%% Process GIDs {process_gids} do not include device group {st.st_gid}"
+                txt = f"%%% {node}: Process GIDs {process_gids} do not include device group {st.st_gid}"
                 _logger.error(txt)
                 return False
 
@@ -193,7 +122,7 @@ def device_exists(node):
         return False
 
 
-def socket_exists(host, port):
+def socket_exists(host, port) -> bool:
     """check whether an Modbus/TCP appliance is accessible
     to be used the check accessibility of a Modbus/TCP appliance
     """
@@ -223,7 +152,7 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
             ctype - type of client, either 'serial' or 'tcp'
             node - dictionary describing the interfacing device, depending on ctype
                 serial -> containing 'device', 'baudrate', 'bytesize', 'parity'
-                tcp    -> containing 'host', 'port', 'timeout', 'retries'
+                tcp -> containing 'host', 'port', 'timeout', 'retries'
     """
 
     def open_serial(dev, baudrate, bytesize, parity) -> ModbusSerialClient | None:
@@ -235,14 +164,15 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
             parity - str # 'N', 'E', 'O'
         """
         if device_exists(dev):
-            # issues encountered with exclusive lock on ttyAMA0, therefore exclusive=False
+            # 20251121 - issues encountered with exclusive lock on ttyAMA0, therefore exclusive=False;
+            # 20261025 - since pymodbus 3.7.0, tye parameter exclusive is no longer accepted,
+            # hence removed. If the locking issue reoccurs, I'll (have to) mitigate.
             return ModbusSerialClient(
                 port=dev,
-                framer=ModbusRtuFramer,
+                framer=RtuFramer,
                 baudrate=baudrate if baudrate is not None else 19200,
                 bytesize=bytesize if bytesize is not None else 8,
                 parity=parity if parity is not None else "E",
-                exclusive=False,
             )
         else:
             return None
@@ -255,14 +185,14 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
             timeout - int
             restries - int
         """
+        # 202610 - REMOVED `retry_on_empty=True` since incompatible with 3.7.0 onwards
         if socket_exists(host=host, port=port):
             return ModbusTcpClient(
                 host=host,
                 port=port,
-                framer=ModbusSocketFramer,
+                framer=SocketFramer,
                 timeout=timeout if timeout is not None else 100,
                 retries=retries if retries is not None else 3,
-                retry_on_empty=True,
             )
         else:
             return None
@@ -318,98 +248,16 @@ def sync_call(client, function, addr, param, slave):
     return rr
 
 
-class ModbusWrapper:
-    """ wrapper class, broker between the user program and the modbus interface
-    """
-
-    factory = ConstraintFactory()
-
-    def __init__(self, nodes):
-        """ initialise modbus wrapper with the given configuration
-
-        Args:
-            nodes (dict): configuration of the actual modbus (compatible) devices
-        """
-        # save configuration (nodes) for future use
-        self._nodes = nodes
-
-        # initialize client devices
-        self._clients = {}
-        for appl, node in self._nodes.items():
-            if 'serial' in node:
-                self._clients[appl] = modbus_client('serial', node['serial'])
-            elif 'tcp' in node:
-                self._clients[appl] = modbus_client('tcp', node['tcp'])
-            else:
-                txt = f"%%% Unsupported device {node} - revisit your configuration"
-                _logger.warning(txt)
-                self._clients[appl] = None
-
-        # !!!
-        ### as a result of the previous step,
-        ### there is a possibility that a client is not successfully initialized
-        ### a client can be misconfigured or it is invalid or not accessible
-        ### in that case that client is set to None
-
-        # initialize interfaces - in particular the functions that are available for each client (device)
-        self._ifaces = {}
-        for appl, client in self._clients.items():
-            if client is None:
-                self._ifaces[appl] = None
-            else:
-                if appl == "vigor":
-                    fncs = FNC_ubbink
-                elif appl == "thermia":
-                    fncs = FNC_thermia
-                elif appl == "alfen":
-                    fncs = FNC_alfen
-                elif appl == "sma":
-                    fncs = FNC_sma
-                else:
-                    fncs = {}
-
-                if fncs == {}:
-                    txt = f"%%% Unsupported appliance type '{appl}' in configuration file"
-                    _logger.warning(txt)
-                else:
-                    for fname, params in fncs.items():
-                        if params.get('validate', False) and params['validate'] != '':
-                            fncs[fname]['_validator'] = ModbusWrapper.factory.compile(params['validate'])
-                        else:
-                            fncs[fname]['_validator'] = None
-
-                    self._ifaces[appl] = ModbusInterface(
-                        client,
-                        self._nodes[appl]["slave"],
-                        functions=fncs,
-                        delay=self._nodes[appl].get("delay", 0),
-                        byteorder=self._nodes[appl].get("byteorder", ">"),
-                        wordorder=self._nodes[appl].get("wordorder", ">"),
-                    )
-
-    def get_interface(self, appl=None):
-        """ return interface built for a given appliance
-        """
-        if appl not in self._ifaces:
-            return None
-        else:
-            return self._ifaces[appl]
-
-    def all_interfaces(self):
-        """ return interfaces for all (defined) appliances
-        """
-        return self._ifaces
-
 class ModbusInterface:
     """ core modbus interface class, handling the requests (calls) to the modbus client (slave)
     """
     def __init__(self, client: ModbusBaseClient, slave, functions, delay, byteorder, wordorder):
         """ Initializes the interface instance
             parameters:
-                client    - ModbusBaseClient
-                slave     - int  # Modbus slave ID for the device (slave)
+                client - ModbusBaseClient
+                slave - int  # Modbus slave ID for the device (slave)
                 functions - dict # *all* available functions for the device
-                delay     - int (seconds) # some devices require a minimal delay between consecutive calls (e.g. Alfen)
+                delay - int (seconds) # some devices require a minimal delay between consecutive calls (e.g. Alfen)
                 byteorder - str  # byte endianess, either '<' or '>'
                 wordorder - str  # word endianess, either '<' or '>'
         """
@@ -440,10 +288,10 @@ class ModbusInterface:
         }
         self._builder = payloadBuilder(byteorder=self._byteorder, wordorder=self._wordorder)
 
-    def print_order(self):
+    def print_order(self) -> str:
         """ print the byte- and wordorder configured for this interface
         """
-        return f"byteorder: {self._byteorder}  wordorder: {self._wordorder}"
+        return f"byteorder: {self._byteorder} wordorder: {self._wordorder}"
 
     def value(self, val=None):
         """ set or return the value, only used/applicable for 'write' calls
@@ -556,12 +404,23 @@ class ModbusInterface:
         else:
             return None
 
-    def functions(self):
+    def write_parameter(self, fName: str, val=None):
+        if val is not None:
+            return self.call(fName, 'wr', val)
+        else:
+            return False
+            
+
+    def read_parameter(self, fName: str):
+        rr = self.call(fName, 'rd')
+        return self.decode_response(fName, rr)
+
+    def get_all_functions(self):
         """ returns the dictionary of 'functions' assigned to the ModbusInterface instance
         """
         return self._functions
 
-    def function(self, fname):
+    def get_function(self, fname):
         """ returns the dictionary object for a given (named) 'functions'
             parameters:
                 fname - str # the name of the modbus request function to be retrieved
@@ -571,3 +430,86 @@ class ModbusInterface:
             return self._functions[fname]
         else:
             return None
+
+class ModbusWrapper:
+    """ wrapper class, broker between the user program and the modbus interface
+    """
+
+    factory = ConstraintFactory()
+
+    def __init__(self, nodes):
+        """ initialise modbus wrapper with the given configuration
+
+        Args:
+            nodes (dict): configuration of the actual modbus (compatible) devices
+        """
+        # save configuration (nodes) for future use
+        self._nodes = nodes
+
+        # initialize client devices
+        self._clients = {}
+        for appl, node in self._nodes.items():
+            if 'serial' in node:
+                self._clients[appl] = modbus_client('serial', node['serial'])
+            elif 'tcp' in node:
+                self._clients[appl] = modbus_client('tcp', node['tcp'])
+            else:
+                txt = f"%%% Unsupported device {node} - revisit your configuration"
+                _logger.warning(txt)
+                self._clients[appl] = None
+
+        # !!!
+        ### as a result of the previous step,
+        ### there is a possibility that a client is not successfully initialized
+        ### a client can be misconfigured or it is invalid or not accessible
+        ### in that case that client is set to None
+
+        # initialize interfaces - in particular the functions that are available for each client (device)
+        self._ifaces = {}
+        for appl, client in self._clients.items():
+            if client is None:
+                self._ifaces[appl] = None
+            else:
+                if appl == "vigor":
+                    fncs = FNC_ubbink
+                elif appl == "thermia":
+                    fncs = FNC_thermia
+                elif appl == "alfen":
+                    fncs = FNC_alfen
+                elif appl == "sma":
+                    fncs = FNC_sma
+                else:
+                    fncs = {}
+
+                if fncs == {}:
+                    txt = f"%%% Unsupported appliance type '{appl}' in configuration file"
+                    _logger.warning(txt)
+                else:
+                    for fname, params in fncs.items():
+                        if params.get('validate', False) and params['validate'] != '':
+                            fncs[fname]['_validator'] = ModbusWrapper.factory.compile(params['validate'])
+                        else:
+                            fncs[fname]['_validator'] = None
+
+                    self._ifaces[appl] = ModbusInterface(
+                        client,
+                        self._nodes[appl]["slave"],
+                        functions=fncs,
+                        delay=self._nodes[appl].get("delay", 0),
+                        byteorder=self._nodes[appl].get("byteorder", ">"),
+                        wordorder=self._nodes[appl].get("wordorder", ">"),
+                    )
+
+    def get_interface(self, appl=None) -> ModbusInterface | None:
+        """ return interface built for a given appliance
+        """
+        if appl not in self._ifaces:
+            return None
+        else:
+            return self._ifaces[appl]
+
+    def all_interfaces(self) -> dict[str, ModbusInterface, ]:
+        """ return interfaces for all (defined) appliances
+        """
+        return self._ifaces
+    

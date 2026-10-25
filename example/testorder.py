@@ -1,19 +1,12 @@
-from sys import argv
 from getopt import gnu_getopt
-from logging import basicConfig, DEBUG, INFO, ERROR
+from logging import DEBUG, ERROR, INFO, basicConfig
+from sys import argv
 
-from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
-from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
-from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
-from modbuswrapper.wrapper import modbus_client, modbus_interface
 from modbus.configuration import NODES
-
-
-def read_parameter(iface: modbus_interface, fName: str):
-    rr = iface.call(fName, 'rd')
-    cur = iface.decode_response(fName, rr)
-    print(f"Parameter {fName}: {cur}")
-    return cur
+from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
+from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
+from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
+from modbuswrapper.wrapper import modbus_client, modbus_interface
 
 
 def init_clients():
@@ -38,31 +31,11 @@ def init_interfaces(clnts, bytorder, wordorder):
             raise UserWarning(f"%%% Unsupported device type '{name}' in configuration file")
 
         interfaces[name] = modbus_interface(clnts[name], node['slave'], functions=fnc,
-                                           delay=node['delay'] if 'delay' in node else 0,
+                                           delay=node.get('delay', 0),
                                            byteorder=bytorder,
                                            wordorder=wordorder)
     return interfaces
 
-
-# modbuswrapper/alfen_functions.py:    'conf-modbus-maxcurrent': {
-# modbuswrapper/alfen_functions.py:        'len': 2, 'rd': 3, 'wr': 16, 'scale': 1,
-# modbuswrapper/alfen_functions.py:        'validate': 'between(5, 13)', 'datatype': 'flt32', 'unit': 'A'},
-# modbuswrapper/alfen_functions.py:    'conf-charge-using-1-or-3-phases': {
-# modbuswrapper/alfen_functions.py:        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-# modbuswrapper/alfen_functions.py:        'validate': 'in_list(1, 3)', 'datatype': 'uint16', 'unit': 'phases'},
-# modbuswrapper/alfen_functions.py:    'conf-modbus-max-current-valid-time': {
-# modbuswrapper/alfen_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 's'},
-# modbuswrapper/thermia_functions.py:    'compressor-operating-hours': {
-# modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int32', 'unit': 'hrs'},
-# modbuswrapper/thermia_functions.py:    'tap-water-operating-hours': {
-# modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int32', 'unit': 'hrs'},
-# modbuswrapper/thermia_functions.py:    'maximum-allowed-gear-in-heating': {
-# modbuswrapper/thermia_functions.py:        'len': 1, 'rd': 3, 'wr': 6, 'scale': 1,
-# modbuswrapper/thermia_functions.py:        'validate': '', 'datatype': 'int16', 'unit': ''},
-# modbuswrapper/ubbink_functions.py:    'total-flow-in-m3/h': {
-# modbuswrapper/ubbink_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 'm3/h'},
-# modbuswrapper/ubbink_functions.py:    'operating-time': {
-# modbuswrapper/ubbink_functions.py:        'validate': '', 'datatype': 'uint32', 'unit': 'hrs'},
 
 functions = {
     'alfen': {
@@ -125,27 +98,27 @@ if __name__ == '__main__':
         v = 13 - par*0.25
         device = 'alfen'
         func = 'conf-modbus-maxcurrent'
-        ret = ifaces[device].call(func, 'wr', f"{v}")
+        ret = ifaces[device].write_parameter(func, f"{v}")
         print(f"{func}({v}) -> {ret}")
-        read_parameter(ifaces[device], func)
+        ifaces[device].read_parameter(func)
 
         # 'conf-charge-using-1-or-3-phases': {}, phases = 1
         v = 1 + (par % 2)*2
         device = 'alfen'
         func = 'conf-charge-using-1-or-3-phases'
-        ret = ifaces[device].call(func, 'wr', f"{v}")
+        ret = ifaces[device].write_parameter(func, f"{v}")
         print(f"{func}({v}) -> {ret}")
-        read_parameter(ifaces[device], func)
+        ifaces[device].read_parameter(func)
 
         # 'maximum-allowed-gear-in-heating': {}, maxgear = 9
         v = 9 - par
         device = 'thermia'
         func = 'maximum-allowed-gear-in-heating'
-        ret = ifaces[device].call(func, 'wr', f"{v}")
+        ret = ifaces[device].write_parameter(func, f"{v}")
         print(f"{func}({v}) -> {ret}")
-        read_parameter(ifaces[device], func)
+        ifaces[device].read_parameter(func)
     else:
         for name, fies in functions.items():
             for func in fies:
                 print(f"appliance [{name}] -> function [{func}]")
-                read_parameter(ifaces[name], func)
+                ifaces[name].read_parameter(func)
