@@ -1,8 +1,6 @@
 from decimal import Decimal
 from importlib.metadata import version
 
-from pymodbus.framer import FramerType
-
 
 def convert_version(vers) -> Decimal:
     nbrs = vers.split(".")
