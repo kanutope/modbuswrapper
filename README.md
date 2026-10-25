@@ -1,7 +1,4 @@
 # modbus_wrapper
-
-TODO: ModuleNotFoundError: No module named 'pymodbus.framer.rtu_framer'
-SEE: piwi2
 ___
 
 ## context
