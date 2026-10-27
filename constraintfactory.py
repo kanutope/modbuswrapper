@@ -36,9 +36,7 @@ class ConstraintFactory:
             tree = ast.parse(constraint_str, mode="eval")
             call_node = tree.body
 
-            if not isinstance(call_node, ast.Call) or not isinstance(
-                call_node.func, ast.Name
-            ):
+            if not isinstance(call_node, ast.Call) or not isinstance(call_node.func, ast.Name):
                 raise TypeError(
                     "Expected a single function call e.g. 'between(a, b)'"
                 )

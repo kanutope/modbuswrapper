@@ -138,7 +138,7 @@ This can easily be extended by adding more static member functions `_make_XXX` t
 
 ```python
     @staticmethod
-    def _make_ny_own_validation(params) -> Callable[[Any], bool]:
+    def _make_my_own_validation(params) -> Callable[[Any], bool]:
 ```
 
 
