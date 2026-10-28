@@ -15,11 +15,11 @@ from time import sleep
 from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 from pymodbus.client.base import ModbusBaseClient
 from pymodbus.exceptions import ModbusException
-from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder
 from pymodbus.pdu import ExceptionResponse
 
 from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
 from modbuswrapper.constraintfactory import ConstraintFactory
+from modbuswrapper.payload_proxy import payloadBuilder, payloadDecoder
 from modbuswrapper.pkg_proxy import RtuFramer, SocketFramer
 from modbuswrapper.sma_functions import FUNCTIONS as FNC_sma
 from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
@@ -33,58 +33,6 @@ _logger = getLogger(__name__)
 # Defaults.Timeout = 10
 # Defaults.Reconnects = 10
 # ReconnectDelay = 500
-
-class payloadBuilder(BinaryPayloadBuilder):
-    """ extends the BinaryPayloadBuilder class with a dictionary allowing to call the various add_xxx methods by 'label'
-    """
-    def __init__(self, byteorder='>', wordorder='>'):
-        """ creates the 'add' dictionary which renders the various add_methods callable by 'label'
-            parameters:
-                byteorder - string - default '>' (big endian)
-                wordorder - string - default '>' (big endian)
-        """
-        super().__init__(byteorder=byteorder, wordorder=wordorder)
-        self.add = {
-            'bits': super().add_bits,
-            'flt16': super().add_16bit_float,
-            'flt32': super().add_32bit_float,
-            'flt64': super().add_64bit_float,
-            'int16': super().add_16bit_int,
-            'int32': super().add_32bit_int,
-            'int64': super().add_64bit_int,
-            'int8': super().add_8bit_int,
-            'str': super().add_string,
-            'uint16': super().add_16bit_uint,
-            'uint32': super().add_32bit_uint,
-            'uint64': super().add_64bit_uint,
-            'uint8': super().add_8bit_uint,
-        }
-
-
-class payloadDecoder:
-    """ renders the various decode_xxx methods from a given BinaryPayloadDecoder object accessible by 'label'
-    """
-    def __init__(self, bpd: BinaryPayloadDecoder):
-        """ creates the decoder dictionary which renders the various decoded_XXX methods callable by 'label'
-            parameters:
-                bpd - BinaryPayloadDecoder instance
-        """
-        self.decoder = {
-            'bits': bpd.decode_bits,
-            'flt16': bpd.decode_16bit_float,
-            'flt32': bpd.decode_32bit_float,
-            'flt64': bpd.decode_64bit_float,
-            'int16': bpd.decode_16bit_int,
-            'int32': bpd.decode_32bit_int,
-            'int64': bpd.decode_64bit_int,
-            'int8': bpd.decode_8bit_int,
-            'str': bpd.decode_string,
-            'uint16': bpd.decode_16bit_uint,
-            'uint32': bpd.decode_32bit_uint,
-            'uint64': bpd.decode_64bit_uint,
-            'uint8': bpd.decode_8bit_uint,
-        }
-
 
 def device_exists(node) -> bool:
     """ check whether a (serial) device file exists
@@ -388,9 +336,7 @@ class ModbusInterface:
             if fnc['datatype'] == 'bits':
                 return rr.bits[0]
             else:
-                decoder = payloadDecoder(BinaryPayloadDecoder.fromRegisters(registers=rr.registers,
-                                                                            byteorder=self._byteorder,
-                                                                            wordorder=self._wordorder))
+                decoder = payloadDecoder(rr.registers, byteorder=self._byteorder, wordorder=self._wordorder)
                 dtype = fnc['datatype']
                 if dtype in decoder.decoder:
                     if dtype == 'str':
