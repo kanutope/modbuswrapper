@@ -1,9 +1,10 @@
 """ payload_proxy
 """
+from pymodbus.constants import Endian
 from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder
 
 
-class payloadBuilder(BinaryPayloadBuilder):
+class payloadBuilder:
     """ extends the BinaryPayloadBuilder class with a dictionary allowing to call the various add_xxx methods by 'label'
     """
     def __init__(self, byteorder='>', wordorder='>'):
@@ -12,50 +13,60 @@ class payloadBuilder(BinaryPayloadBuilder):
                 byteorder - string - default '>' (big endian)
                 wordorder - string - default '>' (big endian)
         """
-        super().__init__(byteorder=byteorder, wordorder=wordorder)
-        self.add = {
-            'bits': super().add_bits,
-            'flt16': super().add_16bit_float,
-            'flt32': super().add_32bit_float,
-            'flt64': super().add_64bit_float,
-            'int16': super().add_16bit_int,
-            'int32': super().add_32bit_int,
-            'int64': super().add_64bit_int,
-            'int8': super().add_8bit_int,
-            'str': super().add_string,
-            'uint16': super().add_16bit_uint,
-            'uint32': super().add_32bit_uint,
-            'uint64': super().add_64bit_uint,
-            'uint8': super().add_8bit_uint,
+        self.bplb = BinaryPayloadBuilder(byteorder=byteorder, wordorder=wordorder)
+
+        self._add = {
+            'bits':self.bplb.add_bits,
+            'flt16':self.bplb.add_16bit_float,
+            'flt32':self.bplb.add_32bit_float,
+            'flt64':self.bplb.add_64bit_float,
+            'int16':self.bplb.add_16bit_int,
+            'int32':self.bplb.add_32bit_int,
+            'int64':self.bplb.add_64bit_int,
+            'int8':self.bplb.add_8bit_int,
+            'str':self.bplb.add_string,
+            'uint16':self.bplb.add_16bit_uint,
+            'uint32':self.bplb.add_32bit_uint,
+            'uint64':self.bplb.add_64bit_uint,
+            'uint8':self.bplb.add_8bit_uint,
         }
+
+    def add_payload(self, value=0, datatype=''):
+        add = self._add.get(datatype, False)
+        if add:
+            self._add[datatype](value)
+
+    def to_registers(self):
+        return self.bplb.to_registers()
+
 
 
 class payloadDecoder:
     """ renders the various decode_xxx methods from a given BinaryPayloadDecoder object accessible by 'label'
     """
-    def __init__(self, registers: list[int]):
+    def __init__(self, registers: list[int], byteorder=Endian.LITTLE, wordorder=Endian.BIG):
         """ creates the decoder dictionary which renders the various decoded_XXX methods callable by 'label'
             parameters:
-                bpd - BinaryPayloadDecoder instance
+                bpld - BinaryPayloadDecoder instance
         """
-        bpd = BinaryPayloadDecoder.fromRegisters(registers=registers,
-                                                 byteorder=self._byteorder,
-                                                 wordorder=self._wordorder)
+        bpld = BinaryPayloadDecoder.fromRegisters(registers=registers,
+                                                 byteorder= byteorder,
+                                                 wordorder= wordorder)
         
         self.decoder = {
-            'bits': bpd.decode_bits,
-            'flt16': bpd.decode_16bit_float,
-            'flt32': bpd.decode_32bit_float,
-            'flt64': bpd.decode_64bit_float,
-            'int16': bpd.decode_16bit_int,
-            'int32': bpd.decode_32bit_int,
-            'int64': bpd.decode_64bit_int,
-            'int8': bpd.decode_8bit_int,
-            'str': bpd.decode_string,
-            'uint16': bpd.decode_16bit_uint,
-            'uint32': bpd.decode_32bit_uint,
-            'uint64': bpd.decode_64bit_uint,
-            'uint8': bpd.decode_8bit_uint,
+            'bits': bpld.decode_bits,
+            'flt16': bpld.decode_16bit_float,
+            'flt32': bpld.decode_32bit_float,
+            'flt64': bpld.decode_64bit_float,
+            'int16': bpld.decode_16bit_int,
+            'int32': bpld.decode_32bit_int,
+            'int64': bpld.decode_64bit_int,
+            'int8': bpld.decode_8bit_int,
+            'str': bpld.decode_string,
+            'uint16': bpld.decode_16bit_uint,
+            'uint32': bpld.decode_32bit_uint,
+            'uint64': bpld.decode_64bit_uint,
+            'uint8': bpld.decode_8bit_uint,
         }
 
 

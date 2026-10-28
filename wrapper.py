@@ -17,13 +17,13 @@ from pymodbus.client.base import ModbusBaseClient
 from pymodbus.exceptions import ModbusException
 from pymodbus.pdu import ExceptionResponse
 
-from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
 from modbuswrapper.constraintfactory import ConstraintFactory
+from modbuswrapper.functions_alfen import FUNCTIONS as FNC_alfen
+from modbuswrapper.functions_sma import FUNCTIONS as FNC_sma
+from modbuswrapper.functions_thermia import FUNCTIONS as FNC_thermia
+from modbuswrapper.functions_ubbink import FUNCTIONS as FNC_ubbink
 from modbuswrapper.payload_proxy import payloadBuilder, payloadDecoder
 from modbuswrapper.pkg_proxy import RtuFramer, SocketFramer
-from modbuswrapper.sma_functions import FUNCTIONS as FNC_sma
-from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
-from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
 
 _logger = getLogger(__name__)
 
@@ -234,7 +234,6 @@ class ModbusInterface:
             15: client.write_coils,
             16: client.write_registers,
         }
-        self._builder = payloadBuilder(byteorder=self._byteorder, wordorder=self._wordorder)
 
     def print_order(self) -> str:
         """ print the byte- and wordorder configured for this interface
@@ -285,22 +284,25 @@ class ModbusInterface:
                 _par = fnc['len']
             elif action == 'wr':
                 if fnc['datatype'][0:3] == 'int' or fnc['datatype'][0:4] == 'uint':
-                    cast = int
                     self.value(int(float(value)))
                 elif fnc['datatype'][0:3] == 'flt':
-                    cast = float
                     self.value(float(value))
+                elif fnc['datatype'] == 'bits':
+                    self.value(int(value))
+                elif fnc['datatype'] == 'str':
+                    self.value(bytes(value))
                 else:
-                    cast = self.null
+                    self.value(value)
 
                 if fnc['_validator'] is not None and not fnc['_validator'](self.value()):
-                    raise UserWarning(f"%%% Value {self.value()} is out of range {fnc['validate']}")
+                    raise UserWarning(f"%%% Value [{self.value()}]({fnc['datatype']}) is out of range ({fnc['validate']})")
 
-                if cast == float:
-                    # encode the value
-                    self._builder.reset()
-                    self._builder.add[fnc['datatype']](self.value() * fnc['scale'])
-                    _par = self._builder.to_registers()
+                # 2026-10-28 - so far, with the appliances and functions I could test, I only have to
+                # use the (binary)payloadbuilder for the datatype 'flt**'
+                if fnc['datatype'][0:3] == 'flt':
+                    plb = payloadBuilder(byteorder=self._byteorder, wordorder=self._wordorder)
+                    plb.add_payload(value=(self.value() * fnc['scale']), datatype=fnc['datatype'])
+                    _par = plb.to_registers()
                 else:
                     _par = self.value() * fnc['scale']
             else:
