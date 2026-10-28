@@ -342,11 +342,18 @@ class ModbusInterface:
                 elif fnc['datatype'][0:3] == 'flt':
                     cast = float
                     self.value(float(value))
+                elif fnc['datatype'] == 'bits':
+                    cast = bytes
+                    self.value(int(value))
+                elif fnc['datatype'] == 'str':
+                    cast = bytes
+                    self.value(bytes(value))
                 else:
                     cast = self.null
+                    self.value(value)
 
                 if fnc['_validator'] is not None and not fnc['_validator'](self.value()):
-                    raise UserWarning(f"%%% Value {self.value()} is out of range {fnc['validate']}")
+                    raise UserWarning(f"%%% Value [{self.value()}]({fnc['datatype']}) is out of range ({fnc['validate']})")
 
                 if cast == float:
                     # encode the value
@@ -512,4 +519,4 @@ class ModbusWrapper:
         """ return interfaces for all (defined) appliances
         """
         return self._ifaces
-    
+
