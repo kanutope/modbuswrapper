@@ -1,3 +1,5 @@
+- `pymodbus` upgraded till v16.1 and still working as expected  
+with the limitations of the appliances I can test
 - at `pymodbus` v3.10.0 signature of modbus calls changed, resolution    
 function `repack_kwargs` in `pkg_proxy.py`;
 
