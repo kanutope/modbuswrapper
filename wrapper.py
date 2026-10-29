@@ -26,10 +26,11 @@ from modbuswrapper.pkg_proxy import (
     get_pkg_version,
     proxyRtuFramer,
     proxySocketFramer,
+    repack_kwargs,
 )
 
 _logger = getLogger(__name__)
-txt = f"%%% {__name__} - pymodbus version: {get_pkg_version("pymodbus")}"
+txt = f"%%% {__name__} - pymodbus version: {get_pkg_version('pymodbus')}"
 _logger.warning(txt)
 
 
@@ -240,11 +241,11 @@ class ModbusInterface:
             if code == 0:
                 raise UserWarning("sync_call: code must be <> 0")
             elif code in (15, 16):        # write coils / registers
-                rr = function(address=addr, values=param, slave=slave)
+                rr = function(**repack_kwargs(address=addr, values=param, slave=slave))
             elif code in (5, 6):        # write coil / register
-                rr = function(address=addr, value=param, slave=slave)
+                rr = function(**repack_kwargs(address=addr, value=param, slave=slave))
             else:                       # read
-                rr = function(address=addr, count=param, slave=slave)
+                rr = function(**repack_kwargs(address=addr, count=param, slave=slave))
         except ModbusException as exc:
             txt = f"*** [{__name__}] - pymodbus exception: {exc}"
             _logger.error(txt)

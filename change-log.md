@@ -1,3 +1,14 @@
+- at `pymodbus` v3.10.0 signature of modbus calls changed, resolution    
+function `repack_kwargs` in `pkg_proxy.py`;
+
+```
+    # up to version v3.9.2
+    read_holding_registers(address: int, *, count: int = 1, slave: int = 1, no_response_expected: bool = False)→ T
+    # as of version 3.10.0
+    read_holding_registers(address: int, *, count: int = 1, device_id: int = 1, no_response_expected: bool = False)→ T
+```
+
+
 - removed the per call `close()` of the client connection
 - `class payloadBuilder` and `class payloadDecoder` dropped because of incompatibility since 3.9.0 onwards
     - replaced by `self.client.convert_to_registers` and `self.client.convert_from_registers`
