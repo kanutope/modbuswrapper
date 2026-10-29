@@ -19,28 +19,28 @@ way, equals highly configurable.
 
 ## pymodbus
 
-Using `pymodbus` package, my code broke at `pymodbus-3.7.0` with
+I started with  `pymodbus` package version 'v3.6' and kept it running for a long time on a
+**Raspberry Pi Zero 2 W**. Just recently I worked through upgrading it, up to the current
+version '**v3.16.1**'.
 
-```bash
-    from modbuswrapper.wrapper import ModbusWrapper
-  File "/home/paul_b/app/modbuswrapper/wrapper.py", line 21, in <module>
-    from pymodbus.framer.rtu_framer import ModbusRtuFramer
-ModuleNotFoundError: No module named 'pymodbus.framer.rtu_framer'
-```
+It took me a few tweaks to get/keep it running, as I did want to keep it backwards compatibility
+(as a sort of personal challenge). It broke twice, once at v3.7 and at v3.10. As I was running
+largely behind, I could have fixed and aligned my code with the latest version and leave it like that.
 
-As I was running largely behind (pymodbus being at *3.16.1* these days), I could have fixed and aligned my code
-with the latest version and leave it like that. Nevertheless, I did want to find a solution to support two
-incompatible versions, and that's how I came with `pkg_proxy.py` - a package proxy. The solution being quite
-simple, it works: the same code can run with `pymodbus-3.6.9` and `pymodbus-3.7.0` without modification.
-(I didn't test yet up to the current version *3.16.1*).
+Nevertheless, I did want to find a solution to support two incompatible versions, and that's how I came
+to `pkg_proxy.py`. The solution being quite simple, it works: the same code can run with `pymodbus-3.6.9`
+up to `pymodbus-3.16.1` without modification.
 
-## v2.0 refactoring
+## modbuswrapper v2.0 refactoring
 
 I have refactored the wrapper to encapsulate more into the core class.
 
-The version 1.x required the user (program) to first create the *ModbusXXXClient* (devices or sockets) to communicate with the appliances) and then to create the appropriate interfaces (functions applicable to the appliance). All that has now been integrated in one wrapper class ***ModbusWrapper***.
+The version 1.x required the user (program) to first create the *ModbusXXXClient* (devices or sockets to
+*communicate* with the appliances) and then to create the appropriate interfaces (functions applicable to
+the appliance). All that has now been integrated in one wrapper class ***ModbusWrapper***.
 
-Additionally, after an AI quality check, I replaced the *dynamic* code I wrote for validation (based on `eval()`) with a safer implementation. As proposed by Gemini AI, this resulted in the ***ConstraintFactory*** class.
+Additionally, after an AI quality check, I replaced the *dynamic* code I wrote for validation (based on `eval()`)
+with a safer implementation. As proposed by Gemini AI, this resulted in the ***ConstraintFactory*** class.
 
 ## version history
 
@@ -66,8 +66,9 @@ The following modbus capable appliance are implemented
 The solution I finally built is contained in the core module ***wrapper.py***.
 
 
-It provides the main component (class) `ModbusWrapper`, providing the 'brokering' features for the program accessing modbus connected appliances. The user program initializes the whole by
-creating the wrapper with its known device configuration:
+It provides the main component (class) `ModbusWrapper`, providing the 'brokering' features for the program accessing
+modbus connected appliances. The user program initializes the whole by creating the wrapper with its known device
+configuration:
 
 ```python
     # Initialize physical devices
@@ -127,7 +128,8 @@ for convenient usage in REST calls). E.g.:
 Observe in the example above that a different slave address can be specified per function
 (register) call.
 
-The `ModbusWrapper` class only supports validation rules that are defined by the `ConstraintFactory` class. Currently only two validation function are defined:
+The `ModbusWrapper` class only supports validation rules that are defined by the `ConstraintFactory` class.
+Currently only two validation function are defined:
 
     - in_list(0, 1, 2)
     - between(0, 1000)
