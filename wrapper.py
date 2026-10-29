@@ -23,11 +23,14 @@ from modbuswrapper.functions_sma import FUNCTIONS as FNC_sma
 from modbuswrapper.functions_thermia import FUNCTIONS as FNC_thermia
 from modbuswrapper.functions_ubbink import FUNCTIONS as FNC_ubbink
 from modbuswrapper.pkg_proxy import (
+    get_pkg_version,
     proxyRtuFramer,
     proxySocketFramer,
 )
 
 _logger = getLogger(__name__)
+txt = f"%%% {__name__} - pymodbus version: {get_pkg_version("pymodbus")}"
+_logger.warning(txt)
 
 
 # pymodbus defaults overwrite
@@ -45,13 +48,13 @@ def device_exists(node) -> bool:
 
         # 1. Must be a character device
         if not stat.S_ISCHR(st.st_mode):
-            txt = f"%%% {node}: is not a character device"
+            txt = f"%%% [{__name__}]({node}) - is not a character device"
             _logger.error(txt)
             return False
 
         # 2. Test if the CURRENT process effectively has R/W access
         if not os.access(node, os.R_OK | os.W_OK):
-            txt = f"%%% {node}: Process lacks R/W permissions for"
+            txt = f"%%% [{__name__}]({node}) - process lacks R/W permissions for"
             _logger.error(txt)
             return False
 
@@ -60,14 +63,14 @@ def device_exists(node) -> bool:
         if group_rw:
             process_gids = set([os.getegid()] + os.getgroups())
             if st.st_gid not in process_gids and os.geteuid() != 0:
-                txt = f"%%% {node}: Process GIDs {process_gids} do not include device group {st.st_gid}"
+                txt = f"%%% [{__name__}]({node}) - {st.st_gid} not contained in process GIDs {process_gids}"
                 _logger.error(txt)
                 return False
 
         return True
 
     except OSError as ex:
-        txt = f"%%% Device {node} unavailable -> {ex.strerror}"
+        txt = f"%%% [{__name__}]({node}) - device unavailable -> {ex.strerror}"
         _logger.error(txt)
         return False
 
@@ -85,13 +88,13 @@ def socket_exists(host, port) -> bool:
         return True
 
     except TimeoutError as ex:
-        txt = f"%%% Connecting {host}:{port} timed out -> {ex.strerror}"
+        txt = f"%%% [{__name__}] - connecting {host}:{port} timed out -> {ex.strerror}"
         _logger.error(txt)
         return False
     except OSError as ex:
         # OSError: [Errno 113] No route to host
         # ConnectionRefusedError: [Errno 111] Connection refused
-        txt = f"%%% Unable to connect {host}:{port} -> {ex.strerror}"
+        txt = f"%%% [{__name__}] - unable to connect {host}:{port} -> {ex.strerror}"
         _logger.error(txt)
         return False
 
@@ -243,16 +246,16 @@ class ModbusInterface:
             else:                       # read
                 rr = function(address=addr, count=param, slave=slave)
         except ModbusException as exc:
-            txt = f"*** pymodbus exception: {exc}"
+            txt = f"*** [{__name__}] - pymodbus exception: {exc}"
             _logger.error(txt)
             raise ModbusException(txt)
         if rr.isError():
-            txt = "*** pymodbus returned an error!"
+            txt = "[{__name__}] - *** pymodbus returned an error!"
             _logger.error(txt)
             raise ModbusException(txt)
 
         if isinstance(rr, ExceptionResponse):
-            txt = f"*** exception from device {rr}!"
+            txt = f"[{__name__}] - *** exception from device {rr}!"
             _logger.error(txt)
             # THIS IS NOT A PYTHON EXCEPTION, but a valid modbus message
             raise ModbusException(txt)
@@ -337,7 +340,7 @@ class ModbusInterface:
             if self._delay is not None:
                 sleep(self._delay)
 
-            txt = f"Function={fname} action={action} fnc={fnc[action]} address={fnc['address']}"
+            txt = f"[{__name__}] - sync_call( function={fname} action={action} fnc={fnc[action]} address={fnc['address']} )"
             _logger.debug(txt)
 
             rr = self.sync_call(client=self.client, code=fnc[action], addr=fnc['address'], param=_par, slave=slave)
@@ -349,8 +352,7 @@ class ModbusInterface:
                 else:
                     resp = self.client.convert_from_registers(rr.registers, data_type=mixin_types[data_type])         
 
-                txt = f"Function {fname} -> {resp} (len: {fnc['len']} datatype: {data_type} resp_type{type(resp)})"
-                print(txt)
+                txt = f"[{__name__}] - {fname} -> {resp} (len {fnc['len']}, datatype {data_type}, resp_type{type(resp)})"
                 _logger.debug(txt)
 
                 return resp
@@ -408,7 +410,7 @@ class ModbusWrapper:
             elif 'tcp' in node:
                 self._clients[appl] = modbus_client('tcp', node['tcp'])
             else:
-                txt = f"%%% Unsupported device {node} - revisit your configuration"
+                txt = f"%%% [{__name__}] - Unsupported device {node} - revisit your configuration"
                 _logger.warning(txt)
                 self._clients[appl] = None
 
@@ -436,7 +438,7 @@ class ModbusWrapper:
                     fncs = {}
 
                 if fncs == {}:
-                    txt = f"%%% Unsupported appliance type '{appl}' in configuration file"
+                    txt = f"%%% [{__name__}] - unsupported appliance '{appl}' in configuration file"
                     _logger.warning(txt)
                 else:
                     for fname, params in fncs.items():

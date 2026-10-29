@@ -38,9 +38,7 @@ simple, it works: the same code can run with `pymodbus-3.6.9` and `pymodbus-3.7.
 
 I have refactored the wrapper to encapsulate more into the core class.
 
-The version 1.x required the user to first create the *ModbusXXXClient* (devices or sockets to communicate with the appliances) and then to create the appropriate interfaces 
-(functions applicable to the appliance). All that has now been integrated in one wrapper
-class ***ModbusWrapper***.
+The version 1.x required the user (program) to first create the *ModbusXXXClient* (devices or sockets) to communicate with the appliances) and then to create the appropriate interfaces (functions applicable to the appliance). All that has now been integrated in one wrapper class ***ModbusWrapper***.
 
 Additionally, after an AI quality check, I replaced the *dynamic* code I wrote for validation (based on `eval()`) with a safer implementation. As proposed by Gemini AI, this resulted in the ***ConstraintFactory*** class.
 

@@ -1,6 +1,8 @@
 from decimal import Decimal
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
+from logging import getLogger
 
+_logger = getLogger(__name__)
 
 def convert_version(vers) -> Decimal:
     nbrs = vers.split(".")
@@ -11,11 +13,18 @@ def convert_version(vers) -> Decimal:
     return major + minor / 1000 + patch / 1000000
 
 
-v3_7 = convert_version("3.7")
+def get_pkg_version(pkg: str) -> str:
+    try:
+        return version(pkg)
+    except PackageNotFoundError as exc:
+        txt = f"%%% [{__name__}] - package {pkg} not found in library."
+        _logger.warning(txt)
+        return "#N/A"
+        
 
 # pymodbus
-version = version("pymodbus")
-if convert_version(version) < v3_7:
+v3_7 = convert_version("3.7")
+if convert_version(version("pymodbus")) < v3_7:
     from pymodbus.framer.rtu_framer import ModbusRtuFramer
     from pymodbus.framer.socket_framer import ModbusSocketFramer
 
