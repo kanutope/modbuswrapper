@@ -15,17 +15,23 @@ from time import sleep
 from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 from pymodbus.client.base import ModbusBaseClient
 from pymodbus.exceptions import ModbusException
-from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder
 from pymodbus.pdu import ExceptionResponse
 
-from modbuswrapper.alfen_functions import FUNCTIONS as FNC_alfen
 from modbuswrapper.constraintfactory import ConstraintFactory
-from modbuswrapper.pkg_proxy import RtuFramer, SocketFramer
-from modbuswrapper.sma_functions import FUNCTIONS as FNC_sma
-from modbuswrapper.thermia_functions import FUNCTIONS as FNC_thermia
-from modbuswrapper.ubbink_functions import FUNCTIONS as FNC_ubbink
+from modbuswrapper.functions_alfen import FUNCTIONS as FNC_alfen
+from modbuswrapper.functions_sma import FUNCTIONS as FNC_sma
+from modbuswrapper.functions_thermia import FUNCTIONS as FNC_thermia
+from modbuswrapper.functions_ubbink import FUNCTIONS as FNC_ubbink
+from modbuswrapper.pkg_proxy import (
+    get_pkg_version,
+    proxyRtuFramer,
+    proxySocketFramer,
+    repack_kwargs,
+)
 
 _logger = getLogger(__name__)
+txt = f"%%% {__name__} - pymodbus version: {get_pkg_version('pymodbus')}"
+_logger.warning(txt)
 
 
 # pymodbus defaults overwrite
@@ -33,58 +39,6 @@ _logger = getLogger(__name__)
 # Defaults.Timeout = 10
 # Defaults.Reconnects = 10
 # ReconnectDelay = 500
-
-class payloadBuilder(BinaryPayloadBuilder):
-    """ extends the BinaryPayloadBuilder class with a dictionary allowing to call the various add_xxx methods by 'label'
-    """
-    def __init__(self, byteorder='>', wordorder='>'):
-        """ creates the 'add' dictionary which renders the various add_methods callable by 'label'
-            parameters:
-                byteorder - string - default '>' (big endian)
-                wordorder - string - default '>' (big endian)
-        """
-        super().__init__(byteorder=byteorder, wordorder=wordorder)
-        self.add = {
-            'bits': super().add_bits,
-            'flt16': super().add_16bit_float,
-            'flt32': super().add_32bit_float,
-            'flt64': super().add_64bit_float,
-            'int16': super().add_16bit_int,
-            'int32': super().add_32bit_int,
-            'int64': super().add_64bit_int,
-            'int8': super().add_8bit_int,
-            'str': super().add_string,
-            'uint16': super().add_16bit_uint,
-            'uint32': super().add_32bit_uint,
-            'uint64': super().add_64bit_uint,
-            'uint8': super().add_8bit_uint,
-        }
-
-
-class payloadDecoder:
-    """ renders the various decode_xxx methods from a given BinaryPayloadDecoder object accessible by 'label'
-    """
-    def __init__(self, bpd: BinaryPayloadDecoder):
-        """ creates the decoder dictionary which renders the various decoded_XXX methods callable by 'label'
-            parameters:
-                bpd - BinaryPayloadDecoder instance
-        """
-        self.decoder = {
-            'bits': bpd.decode_bits,
-            'flt16': bpd.decode_16bit_float,
-            'flt32': bpd.decode_32bit_float,
-            'flt64': bpd.decode_64bit_float,
-            'int16': bpd.decode_16bit_int,
-            'int32': bpd.decode_32bit_int,
-            'int64': bpd.decode_64bit_int,
-            'int8': bpd.decode_8bit_int,
-            'str': bpd.decode_string,
-            'uint16': bpd.decode_16bit_uint,
-            'uint32': bpd.decode_32bit_uint,
-            'uint64': bpd.decode_64bit_uint,
-            'uint8': bpd.decode_8bit_uint,
-        }
-
 
 def device_exists(node) -> bool:
     """ check whether a (serial) device file exists
@@ -95,13 +49,13 @@ def device_exists(node) -> bool:
 
         # 1. Must be a character device
         if not stat.S_ISCHR(st.st_mode):
-            txt = f"%%% {node}: is not a character device"
+            txt = f"%%% [{__name__}]({node}) - is not a character device"
             _logger.error(txt)
             return False
 
         # 2. Test if the CURRENT process effectively has R/W access
         if not os.access(node, os.R_OK | os.W_OK):
-            txt = f"%%% {node}: Process lacks R/W permissions for"
+            txt = f"%%% [{__name__}]({node}) - process lacks R/W permissions for"
             _logger.error(txt)
             return False
 
@@ -110,14 +64,14 @@ def device_exists(node) -> bool:
         if group_rw:
             process_gids = set([os.getegid()] + os.getgroups())
             if st.st_gid not in process_gids and os.geteuid() != 0:
-                txt = f"%%% {node}: Process GIDs {process_gids} do not include device group {st.st_gid}"
+                txt = f"%%% [{__name__}]({node}) - {st.st_gid} not contained in process GIDs {process_gids}"
                 _logger.error(txt)
                 return False
 
         return True
 
     except OSError as ex:
-        txt = f"%%% Device {node} unavailable -> {ex.strerror}"
+        txt = f"%%% [{__name__}]({node}) - device unavailable -> {ex.strerror}"
         _logger.error(txt)
         return False
 
@@ -135,13 +89,13 @@ def socket_exists(host, port) -> bool:
         return True
 
     except TimeoutError as ex:
-        txt = f"%%% Connecting {host}:{port} timed out -> {ex.strerror}"
+        txt = f"%%% [{__name__}] - connecting {host}:{port} timed out -> {ex.strerror}"
         _logger.error(txt)
         return False
     except OSError as ex:
         # OSError: [Errno 113] No route to host
         # ConnectionRefusedError: [Errno 111] Connection refused
-        txt = f"%%% Unable to connect {host}:{port} -> {ex.strerror}"
+        txt = f"%%% [{__name__}] - unable to connect {host}:{port} -> {ex.strerror}"
         _logger.error(txt)
         return False
 
@@ -165,11 +119,11 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
         """
         if device_exists(dev):
             # 20251121 - issues encountered with exclusive lock on ttyAMA0, therefore exclusive=False;
-            # 20261025 - since pymodbus 3.7.0, tye parameter exclusive is no longer accepted,
+            # 20261025 - since pymodbus 3.7.0, the parameter exclusive is no longer accepted,
             # hence removed. If the locking issue reoccurs, I'll (have to) mitigate.
             return ModbusSerialClient(
                 port=dev,
-                framer=RtuFramer,
+                framer=proxyRtuFramer,
                 baudrate=baudrate if baudrate is not None else 19200,
                 bytesize=bytesize if bytesize is not None else 8,
                 parity=parity if parity is not None else "E",
@@ -190,7 +144,7 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
             return ModbusTcpClient(
                 host=host,
                 port=port,
-                framer=SocketFramer,
+                framer=proxySocketFramer,
                 timeout=timeout if timeout is not None else 100,
                 retries=retries if retries is not None else 3,
             )
@@ -215,37 +169,18 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
         return None
 
 
-def sync_call(client, function, addr, param, slave):
-    """ executing the actual modbus calls
-        parameters:
-            client - ModbusBaseClient # either a ModbusSerialClient or ModbusTcpClient instance
-            function - ModbusBaseClient.function # the applicable member function of the ModbusBaseClient to call
-            addr - int # start address to read from or write to, targeting the actual 'function' to request
-            param # parameter (value) applicable for/when writing
-            slave - int # Modbus slave ID
-    """
-    client.connect()
-    assert client.connected
-
-    try:
-        rr = function(addr, param, slave)
-    except ModbusException as exc:
-        txt = f"*** pymodbus exception: {exc}"
-        _logger.error(txt)
-        raise ModbusException(txt)
-    if rr.isError():
-        txt = "*** pymodbus returned an error!"
-        _logger.error(txt)
-        raise ModbusException(txt)
-
-    if isinstance(rr, ExceptionResponse):
-        txt = f"*** exception from device {rr}!"
-        _logger.error(txt)
-        # THIS IS NOT A PYTHON EXCEPTION, but a valid modbus message
-        raise ModbusException(txt)
-
-    client.close()
-    return rr
+mixin_types = {
+    "bits": ModbusBaseClient.DATATYPE.BITS,
+    "flt32": ModbusBaseClient.DATATYPE.FLOAT32,
+    "flt63": ModbusBaseClient.DATATYPE.FLOAT64,
+    "int16": ModbusBaseClient.DATATYPE.INT16,
+    "int32": ModbusBaseClient.DATATYPE.INT32,
+    "int64": ModbusBaseClient.DATATYPE.INT64,
+    "str": ModbusBaseClient.DATATYPE.STRING,
+    "uint16": ModbusBaseClient.DATATYPE.UINT16,
+    "uint32": ModbusBaseClient.DATATYPE.UINT32,
+    "uint64": ModbusBaseClient.DATATYPE.UINT64,
+}
 
 
 class ModbusInterface:
@@ -286,7 +221,49 @@ class ModbusInterface:
             15: client.write_coils,
             16: client.write_registers,
         }
-        self._builder = payloadBuilder(byteorder=self._byteorder, wordorder=self._wordorder)
+
+    def sync_call(self, client, code, addr, param, slave):
+        """ executing the actual modbus calls
+            parameters:
+                client - ModbusBaseClient # either a ModbusSerialClient or ModbusTcpClient instance
+                function - ModbusBaseClient.function # the applicable member function of the ModbusBaseClient to call
+                addr - int # start address to read from or write to, targeting the actual 'function' to request
+                param # parameter (value) applicable for/when writing
+                slave - int # Modbus slave ID
+        """
+        if not client.connected:
+            client.connect()
+            assert client.connected
+
+        function = self._selector[code]
+
+        try:
+            if code == 0:
+                raise UserWarning("sync_call: code must be <> 0")
+            elif code in (15, 16):        # write coils / registers
+                rr = function(**repack_kwargs(address=addr, values=param, slave=slave))
+            elif code in (5, 6):        # write coil / register
+                rr = function(**repack_kwargs(address=addr, value=param, slave=slave))
+            else:                       # read
+                rr = function(**repack_kwargs(address=addr, count=param, slave=slave))
+        except ModbusException as exc:
+            txt = f"*** [{__name__}] - pymodbus exception: {exc}"
+            _logger.error(txt)
+            raise ModbusException(txt)
+        if rr.isError():
+            txt = "[{__name__}] - *** pymodbus returned an error!"
+            _logger.error(txt)
+            raise ModbusException(txt)
+
+        if isinstance(rr, ExceptionResponse):
+            txt = f"[{__name__}] - *** exception from device {rr}!"
+            _logger.error(txt)
+            # THIS IS NOT A PYTHON EXCEPTION, but a valid modbus message
+            raise ModbusException(txt)
+
+        # keep the client connected ...
+        # client.close()
+        return rr
 
     def print_order(self) -> str:
         """ print the byte- and wordorder configured for this interface
@@ -327,39 +304,35 @@ class ModbusInterface:
         """
         if fname in self._functions:
             fnc = self._functions[fname]
+            data_type = fnc['datatype']
             # Modbus slave ID may be overriden for a particular request
             if 'slave' in fnc:
                 slave = fnc['slave']
             else:
                 slave = self.slave
 
+
             if action == 'rd':
                 _par = fnc['len']
             elif action == 'wr':
-                if fnc['datatype'][0:3] == 'int' or fnc['datatype'][0:4] == 'uint':
-                    cast = int
+                if data_type[0:3] == 'int' or data_type[0:4] == 'uint':
                     self.value(int(float(value)))
-                elif fnc['datatype'][0:3] == 'flt':
-                    cast = float
+                elif data_type[0:3] == 'flt':
                     self.value(float(value))
-                elif fnc['datatype'] == 'bits':
-                    cast = bytes
+                elif data_type == 'bits':
                     self.value(int(value))
-                elif fnc['datatype'] == 'str':
-                    cast = bytes
+                elif data_type == 'str':
                     self.value(bytes(value))
                 else:
-                    cast = self.null
                     self.value(value)
 
                 if fnc['_validator'] is not None and not fnc['_validator'](self.value()):
-                    raise UserWarning(f"%%% Value [{self.value()}]({fnc['datatype']}) is out of range ({fnc['validate']})")
+                    raise UserWarning(f"%%% Value [{self.value()}]({data_type}) is out of range ({fnc['validate']})")
 
-                if cast == float:
-                    # encode the value
-                    self._builder.reset()
-                    self._builder.add[fnc['datatype']](self.value() * fnc['scale'])
-                    _par = self._builder.to_registers()
+                # 2026-10-28 - so far, with the appliances and functions I could test,
+                # I only have to convert_to_register for the datatype 'flt**'
+                if data_type in ('flt32', 'flt64'):
+                    _par = self.client.convert_to_registers(value=(self.value() * fnc['scale']), data_type=mixin_types[data_type])
                 else:
                     _par = self.value() * fnc['scale']
             else:
@@ -368,48 +341,26 @@ class ModbusInterface:
             if self._delay is not None:
                 sleep(self._delay)
 
-            txt = f"Function={fname} action={action} fnc={fnc[action]} address={fnc['address']}"
+            txt = f"[{__name__}] - sync_call( function={fname} action={action} fnc={fnc[action]} address={fnc['address']} )"
             _logger.debug(txt)
 
-            rr = sync_call(self.client, self._selector[fnc[action]], fnc['address'], _par, slave)
+            rr = self.sync_call(client=self.client, code=fnc[action], addr=fnc['address'], param=_par, slave=slave)
+   
 
             if action == 'rd':
-                txt = f"Function {fname} -> {self.decode_response(fname, rr)}"
+                if data_type == 'bits':
+                    resp = rr.bits[0]
+                else:
+                    resp = self.client.convert_from_registers(rr.registers, data_type=mixin_types[data_type])         
+
+                txt = f"[{__name__}] - {fname} -> {resp} (len {fnc['len']}, datatype {data_type}, resp_type{type(resp)})"
                 _logger.debug(txt)
 
-            return rr
+                return resp
+            else:
+                return rr
         else:
             raise UserWarning(f"%%% Unsupported function {fname}")
-
-    def decode_response(self, fname, rr):
-        """ decodes the response for a (successful) read request
-            parameters:
-                fname - str # the label given to the modbus request
-                rr # variable returned from read requeset
-        """
-        txt = f"--- decode_response type(rr)={type(rr)}"
-        _logger.debug(txt)
-
-        if fname in self._functions:
-            fnc = self._functions[fname]
-            if fnc['datatype'] == 'bits':
-                return rr.bits[0]
-            else:
-                decoder = payloadDecoder(BinaryPayloadDecoder.fromRegisters(registers=rr.registers,
-                                                                            byteorder=self._byteorder,
-                                                                            wordorder=self._wordorder))
-                dtype = fnc['datatype']
-                if dtype in decoder.decoder:
-                    if dtype == 'str':
-                        ret = decoder.decoder[dtype](fnc['len'])
-                    else:
-                        ret = decoder.decoder[dtype]()
-
-                    return ret / fnc['scale'] if fnc['scale'] != 1 else ret
-                else:
-                    return rr.registers
-        else:
-            return None
 
     def write_parameter(self, fName: str, val=None):
         if val is not None:
@@ -419,8 +370,7 @@ class ModbusInterface:
             
 
     def read_parameter(self, fName: str):
-        rr = self.call(fName, 'rd')
-        return self.decode_response(fName, rr)
+        return self.call(fName, 'rd')
 
     def get_all_functions(self):
         """ returns the dictionary of 'functions' assigned to the ModbusInterface instance
@@ -461,7 +411,7 @@ class ModbusWrapper:
             elif 'tcp' in node:
                 self._clients[appl] = modbus_client('tcp', node['tcp'])
             else:
-                txt = f"%%% Unsupported device {node} - revisit your configuration"
+                txt = f"%%% [{__name__}] - Unsupported device {node} - revisit your configuration"
                 _logger.warning(txt)
                 self._clients[appl] = None
 
@@ -489,7 +439,7 @@ class ModbusWrapper:
                     fncs = {}
 
                 if fncs == {}:
-                    txt = f"%%% Unsupported appliance type '{appl}' in configuration file"
+                    txt = f"%%% [{__name__}] - unsupported appliance '{appl}' in configuration file"
                     _logger.warning(txt)
                 else:
                     for fname, params in fncs.items():
@@ -519,4 +469,3 @@ class ModbusWrapper:
         """ return interfaces for all (defined) appliances
         """
         return self._ifaces
-

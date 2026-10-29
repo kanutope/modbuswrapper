@@ -1,6 +1,8 @@
 from decimal import Decimal
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
+from logging import getLogger
 
+_logger = getLogger(__name__)
 
 def convert_version(vers) -> Decimal:
     nbrs = vers.split(".")
@@ -11,15 +13,37 @@ def convert_version(vers) -> Decimal:
     return major + minor / 1000 + patch / 1000000
 
 
-pmb_version = version("pymodbus")
-if convert_version(pmb_version) < convert_version("3.7"):
+def get_pkg_version(pkg: str) -> str:
+    try:
+        return version(pkg)
+    except PackageNotFoundError:
+        txt = f"%%% [{__name__}] - package {pkg} not found in library."
+        _logger.warning(txt)
+        return "#N/A"
+        
+
+# pymodbus
+v3_7 = convert_version("3.7")
+v3_10 = convert_version("3.10")
+PYMODBUS = convert_version(version("pymodbus"))
+if PYMODBUS < v3_7:
     from pymodbus.framer.rtu_framer import ModbusRtuFramer
     from pymodbus.framer.socket_framer import ModbusSocketFramer
 
-    RtuFramer = ModbusRtuFramer
-    SocketFramer = ModbusSocketFramer
+    proxyRtuFramer = ModbusRtuFramer
+    proxySocketFramer = ModbusSocketFramer
 else:
     from pymodbus.framer import FramerType
 
-    RtuFramer = FramerType.RTU
-    SocketFramer = FramerType.SOCKET
+    proxyRtuFramer = FramerType.RTU
+    proxySocketFramer = FramerType.SOCKET
+
+def repack_kwargs(**kwargs):
+    repacked = {}
+    for key, val in kwargs.items():
+        if PYMODBUS >= v3_10 and key == 'slave':
+            repacked['device_id'] = val
+        else:
+            repacked[key] = val
+    
+    return repacked

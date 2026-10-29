@@ -23,14 +23,14 @@ def comfort_wheel(iface: ModbusInterface, val=None):
 def toggle_tap_water(iface: ModbusInterface, flag=None):
     fName = 'enable-tap-water'
     curr = iface.read_parameter(fName)
-    print(f"{fName} current: {curr}")
+    new = not curr
 
-    new = 1 - curr
     if flag is not None:
         rr = iface.write_parameter(fName, new)
-        print(f"writing returns {rr}")
-        par1 = iface.read_parameter(fName)
-        print(f"{fName} writing val {new} => reads: {par1}")
+        print(f"{fName} writing returns {rr}")
+    
+    par = iface.read_parameter(fName)
+    print(f"{fName} curr: {curr} new: {new} reads => {par}")
 
 
 def test_interface(iface: ModbusInterface, lst):

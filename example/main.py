@@ -203,7 +203,7 @@ def exec_alfen(selection):
     appl = 'alfen'
     iface = mdbwrapper.get_interface(appl)
     for x in selection:
-        print(f"{appl} selection: {x}")
+        print(f"{appl} select [{x}]")
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
             for fName in selector[appl][idx]:
@@ -223,7 +223,7 @@ def exec_thermia(selection):
     appl = 'thermia'
     iface = mdbwrapper.get_interface(appl)
     for x in selection:
-        print(f"{appl} selection: {x} type is {type(x)}")
+        print(f"{appl} select [{x}]")
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
             for fName in selector[appl][idx]:
@@ -235,6 +235,8 @@ def exec_thermia(selection):
             set_cooling(iface, 23)
         elif x == 'u':
             unset_cooling(iface)
+        elif x == 't':
+            implement.toggle_tap_water(iface, 1)
         else:
             print(f"{appl}: *not* covered selection {x}")
 
@@ -243,7 +245,7 @@ def exec_vigor(selection):
     appl = 'vigor'
     iface = mdbwrapper.get_interface(appl)
     for x in selection:
-        print(f"{appl} selection: {x}")
+        print(f"{appl} select [{x}]")
         if x == '1' or x == '2' or x == '3':
             idx = int(x)
             for fName in selector[appl][idx]:
