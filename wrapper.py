@@ -22,8 +22,10 @@ from modbuswrapper.functions_alfen import FUNCTIONS as FNC_alfen
 from modbuswrapper.functions_sma import FUNCTIONS as FNC_sma
 from modbuswrapper.functions_thermia import FUNCTIONS as FNC_thermia
 from modbuswrapper.functions_ubbink import FUNCTIONS as FNC_ubbink
-from modbuswrapper.payload_proxy import payloadBuilder, payloadDecoder
-from modbuswrapper.pkg_proxy import RtuFramer, SocketFramer
+from modbuswrapper.pkg_proxy import (
+    proxyRtuFramer,
+    proxySocketFramer,
+)
 
 _logger = getLogger(__name__)
 
@@ -113,11 +115,11 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
         """
         if device_exists(dev):
             # 20251121 - issues encountered with exclusive lock on ttyAMA0, therefore exclusive=False;
-            # 20261025 - since pymodbus 3.7.0, tye parameter exclusive is no longer accepted,
+            # 20261025 - since pymodbus 3.7.0, the parameter exclusive is no longer accepted,
             # hence removed. If the locking issue reoccurs, I'll (have to) mitigate.
             return ModbusSerialClient(
                 port=dev,
-                framer=RtuFramer,
+                framer=proxyRtuFramer,
                 baudrate=baudrate if baudrate is not None else 19200,
                 bytesize=bytesize if bytesize is not None else 8,
                 parity=parity if parity is not None else "E",
@@ -138,7 +140,7 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
             return ModbusTcpClient(
                 host=host,
                 port=port,
-                framer=SocketFramer,
+                framer=proxySocketFramer,
                 timeout=timeout if timeout is not None else 100,
                 retries=retries if retries is not None else 3,
             )
@@ -163,37 +165,18 @@ def modbus_client(ctype, node) -> ModbusSerialClient | ModbusTcpClient | None:
         return None
 
 
-def sync_call(client, function, addr, param, slave):
-    """ executing the actual modbus calls
-        parameters:
-            client - ModbusBaseClient # either a ModbusSerialClient or ModbusTcpClient instance
-            function - ModbusBaseClient.function # the applicable member function of the ModbusBaseClient to call
-            addr - int # start address to read from or write to, targeting the actual 'function' to request
-            param # parameter (value) applicable for/when writing
-            slave - int # Modbus slave ID
-    """
-    client.connect()
-    assert client.connected
-
-    try:
-        rr = function(addr, param, slave)
-    except ModbusException as exc:
-        txt = f"*** pymodbus exception: {exc}"
-        _logger.error(txt)
-        raise ModbusException(txt)
-    if rr.isError():
-        txt = "*** pymodbus returned an error!"
-        _logger.error(txt)
-        raise ModbusException(txt)
-
-    if isinstance(rr, ExceptionResponse):
-        txt = f"*** exception from device {rr}!"
-        _logger.error(txt)
-        # THIS IS NOT A PYTHON EXCEPTION, but a valid modbus message
-        raise ModbusException(txt)
-
-    client.close()
-    return rr
+mixin_types = {
+    "bits": ModbusBaseClient.DATATYPE.BITS,
+    "flt32": ModbusBaseClient.DATATYPE.FLOAT32,
+    "flt63": ModbusBaseClient.DATATYPE.FLOAT64,
+    "int16": ModbusBaseClient.DATATYPE.INT16,
+    "int32": ModbusBaseClient.DATATYPE.INT32,
+    "int64": ModbusBaseClient.DATATYPE.INT64,
+    "str": ModbusBaseClient.DATATYPE.STRING,
+    "uint16": ModbusBaseClient.DATATYPE.UINT16,
+    "uint32": ModbusBaseClient.DATATYPE.UINT32,
+    "uint64": ModbusBaseClient.DATATYPE.UINT64,
+}
 
 
 class ModbusInterface:
@@ -235,6 +218,49 @@ class ModbusInterface:
             16: client.write_registers,
         }
 
+    def sync_call(self, client, code, addr, param, slave):
+        """ executing the actual modbus calls
+            parameters:
+                client - ModbusBaseClient # either a ModbusSerialClient or ModbusTcpClient instance
+                function - ModbusBaseClient.function # the applicable member function of the ModbusBaseClient to call
+                addr - int # start address to read from or write to, targeting the actual 'function' to request
+                param # parameter (value) applicable for/when writing
+                slave - int # Modbus slave ID
+        """
+        if not client.connected:
+            client.connect()
+            assert client.connected
+
+        function = self._selector[code]
+
+        try:
+            if code == 0:
+                raise UserWarning("sync_call: code must be <> 0")
+            elif code in (15, 16):        # write coils / registers
+                rr = function(address=addr, values=param, slave=slave)
+            elif code in (5, 6):        # write coil / register
+                rr = function(address=addr, value=param, slave=slave)
+            else:                       # read
+                rr = function(address=addr, count=param, slave=slave)
+        except ModbusException as exc:
+            txt = f"*** pymodbus exception: {exc}"
+            _logger.error(txt)
+            raise ModbusException(txt)
+        if rr.isError():
+            txt = "*** pymodbus returned an error!"
+            _logger.error(txt)
+            raise ModbusException(txt)
+
+        if isinstance(rr, ExceptionResponse):
+            txt = f"*** exception from device {rr}!"
+            _logger.error(txt)
+            # THIS IS NOT A PYTHON EXCEPTION, but a valid modbus message
+            raise ModbusException(txt)
+
+        # keep the client connected ...
+        # client.close()
+        return rr
+
     def print_order(self) -> str:
         """ print the byte- and wordorder configured for this interface
         """
@@ -274,35 +300,35 @@ class ModbusInterface:
         """
         if fname in self._functions:
             fnc = self._functions[fname]
+            data_type = fnc['datatype']
             # Modbus slave ID may be overriden for a particular request
             if 'slave' in fnc:
                 slave = fnc['slave']
             else:
                 slave = self.slave
 
+
             if action == 'rd':
                 _par = fnc['len']
             elif action == 'wr':
-                if fnc['datatype'][0:3] == 'int' or fnc['datatype'][0:4] == 'uint':
+                if data_type[0:3] == 'int' or data_type[0:4] == 'uint':
                     self.value(int(float(value)))
-                elif fnc['datatype'][0:3] == 'flt':
+                elif data_type[0:3] == 'flt':
                     self.value(float(value))
-                elif fnc['datatype'] == 'bits':
+                elif data_type == 'bits':
                     self.value(int(value))
-                elif fnc['datatype'] == 'str':
+                elif data_type == 'str':
                     self.value(bytes(value))
                 else:
                     self.value(value)
 
                 if fnc['_validator'] is not None and not fnc['_validator'](self.value()):
-                    raise UserWarning(f"%%% Value [{self.value()}]({fnc['datatype']}) is out of range ({fnc['validate']})")
+                    raise UserWarning(f"%%% Value [{self.value()}]({data_type}) is out of range ({fnc['validate']})")
 
-                # 2026-10-28 - so far, with the appliances and functions I could test, I only have to
-                # use the (binary)payloadbuilder for the datatype 'flt**'
-                if fnc['datatype'][0:3] == 'flt':
-                    plb = payloadBuilder(byteorder=self._byteorder, wordorder=self._wordorder)
-                    plb.add_payload(value=(self.value() * fnc['scale']), datatype=fnc['datatype'])
-                    _par = plb.to_registers()
+                # 2026-10-28 - so far, with the appliances and functions I could test,
+                # I only have to convert_to_register for the datatype 'flt**'
+                if data_type in ('flt32', 'flt64'):
+                    _par = self.client.convert_to_registers(value=(self.value() * fnc['scale']), data_type=mixin_types[data_type])
                 else:
                     _par = self.value() * fnc['scale']
             else:
@@ -314,43 +340,24 @@ class ModbusInterface:
             txt = f"Function={fname} action={action} fnc={fnc[action]} address={fnc['address']}"
             _logger.debug(txt)
 
-            rr = sync_call(self.client, self._selector[fnc[action]], fnc['address'], _par, slave)
+            rr = self.sync_call(client=self.client, code=fnc[action], addr=fnc['address'], param=_par, slave=slave)
+   
 
             if action == 'rd':
-                txt = f"Function {fname} -> {self.decode_response(fname, rr)}"
+                if data_type == 'bits':
+                    resp = rr.bits[0]
+                else:
+                    resp = self.client.convert_from_registers(rr.registers, data_type=mixin_types[data_type])         
+
+                txt = f"Function {fname} -> {resp} (len: {fnc['len']} datatype: {data_type} resp_type{type(resp)})"
+                print(txt)
                 _logger.debug(txt)
 
-            return rr
+                return resp
+            else:
+                return rr
         else:
             raise UserWarning(f"%%% Unsupported function {fname}")
-
-    def decode_response(self, fname, rr):
-        """ decodes the response for a (successful) read request
-            parameters:
-                fname - str # the label given to the modbus request
-                rr # variable returned from read requeset
-        """
-        txt = f"--- decode_response type(rr)={type(rr)}"
-        _logger.debug(txt)
-
-        if fname in self._functions:
-            fnc = self._functions[fname]
-            if fnc['datatype'] == 'bits':
-                return rr.bits[0]
-            else:
-                decoder = payloadDecoder(rr.registers, byteorder=self._byteorder, wordorder=self._wordorder)
-                dtype = fnc['datatype']
-                if dtype in decoder.decoder:
-                    if dtype == 'str':
-                        ret = decoder.decoder[dtype](fnc['len'])
-                    else:
-                        ret = decoder.decoder[dtype]()
-
-                    return ret / fnc['scale'] if fnc['scale'] != 1 else ret
-                else:
-                    return rr.registers
-        else:
-            return None
 
     def write_parameter(self, fName: str, val=None):
         if val is not None:
@@ -360,8 +367,7 @@ class ModbusInterface:
             
 
     def read_parameter(self, fName: str):
-        rr = self.call(fName, 'rd')
-        return self.decode_response(fName, rr)
+        return self.call(fName, 'rd')
 
     def get_all_functions(self):
         """ returns the dictionary of 'functions' assigned to the ModbusInterface instance

@@ -11,15 +11,18 @@ def convert_version(vers) -> Decimal:
     return major + minor / 1000 + patch / 1000000
 
 
-pmb_version = version("pymodbus")
-if convert_version(pmb_version) < convert_version("3.7"):
+v3_7 = convert_version("3.7")
+
+# pymodbus
+version = version("pymodbus")
+if convert_version(version) < v3_7:
     from pymodbus.framer.rtu_framer import ModbusRtuFramer
     from pymodbus.framer.socket_framer import ModbusSocketFramer
 
-    RtuFramer = ModbusRtuFramer
-    SocketFramer = ModbusSocketFramer
+    proxyRtuFramer = ModbusRtuFramer
+    proxySocketFramer = ModbusSocketFramer
 else:
     from pymodbus.framer import FramerType
 
-    RtuFramer = FramerType.RTU
-    SocketFramer = FramerType.SOCKET
+    proxyRtuFramer = FramerType.RTU
+    proxySocketFramer = FramerType.SOCKET
